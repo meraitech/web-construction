@@ -1,9 +1,8 @@
-import Image from "next/image";
 import HeroSection from "./_components/HeroSection";
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col  overflow-hidden">
       <HeroSection />
     </div>
   );
