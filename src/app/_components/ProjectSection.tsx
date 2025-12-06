@@ -17,9 +17,9 @@ export default function ProjectSection() {
 
       {/* showcase  */}
       <div className="flex gap-6">
-        <div className="h-96 min-w-1/4 w-1/3 hover:w-full duration-1000 bg-muted rounded-4xl"></div>
-        <div className="h-96 min-w-1/4 w-1/3 hover:w-full duration-1000 bg-muted rounded-4xl"></div>
-        <div className="h-96 min-w-1/4 w-1/3 hover:w-full duration-1000 bg-muted rounded-4xl"></div>
+        <div className="h-104 min-w-1/4 w-1/3 hover:w-full duration-1000 bg-muted rounded-4xl"></div>
+        <div className="h-104 min-w-1/4 w-1/3 hover:w-full duration-1000 bg-muted rounded-4xl"></div>
+        <div className="h-104 min-w-1/4 w-1/3 hover:w-full duration-1000 bg-muted rounded-4xl"></div>
       </div>
     </section>
   );

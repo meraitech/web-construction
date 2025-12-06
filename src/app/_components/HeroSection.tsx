@@ -32,23 +32,30 @@ export default function HeroSection() {
       className="hero-welcome relative h-[200dvh] w-screen flex group z-0 "
     >
       <div className="h-screen w-full overflow-hidden rounded-4xl scale-105">
-        <Image
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          src="/videos/home-hero.mov"
+          className="h-full w-full object-cover duration-300 group-hover:scale-102 opacity-80 "
+        ></video>
+        {/* <Image
           src={"/images/contents/hero.jpg"}
           width={1920}
           height={1080}
           alt=""
-          className="h-full w-full object-cover duration-300 group-hover:scale-102 opacity-80 "
-        />
+          className=""
+        /> */}
       </div>
 
-      <div className="absolute top-0 left-0 w-screen h-screen flex justify-center items-end p-12">
+      <div className="absolute top-0 left-0 w-screen h-screen flex justify-center items-end px-28 py-28">
         <div className="max-w-[1920px] flex justify-between items-end w-full">
           {/* info  */}
           <div className="flex flex-col gap-6">
-            <h1 className="text-7xl">
+            <h1 className="text-8xl">
               Dealership <br /> builders
             </h1>
-            {/* <span className="text-xl">Since 2012</span> */}
           </div>
 
           {/* awwards   */}

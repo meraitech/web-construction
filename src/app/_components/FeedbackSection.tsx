@@ -23,7 +23,7 @@ export default function FeedbackSection() {
 
 function Comment() {
   return (
-    <li className="bg-muted p-12 rounded-4xl h-96 aspect-video flex flex-col justify-center">
+    <li className="bg-muted p-12 rounded-4xl h-104 aspect-video flex flex-col justify-center">
       <p className="text-2xl mb-8 italic">
         I have worked with other firms in the past, and I greatly appreciated
         the expertise of Vincent & Dussault. Their experience in the automotive
