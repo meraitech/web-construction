@@ -1,0 +1,1 @@
+export const COMPANY_LOGO = "/brand/Logo.png"

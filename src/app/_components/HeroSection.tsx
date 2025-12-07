@@ -14,7 +14,6 @@ export default function HeroSection() {
           end: "+=200%", // 3 karakter x 1 layar
           scrub: true,
           pin: true,
-          markers: true,
           anticipatePin: 1,
           invalidateOnRefresh: true,
         },
@@ -37,7 +36,7 @@ export default function HeroSection() {
           muted
           playsInline
           src="/videos/home-hero.mov"
-          className="h-full w-full object-cover duration-300 group-hover:scale-102 opacity-80 "
+          className="h-full w-full object-cover duration-300 group-hover:scale-102"
         ></video>
       </div>
 
@@ -46,7 +45,7 @@ export default function HeroSection() {
           {/* info  */}
           <div className="flex flex-col gap-6">
             <h1 className="xl:text-8xl lg:text-7xl md:text-6xl text-5xl duration-300">
-              Dealership <br /> builders
+              Merai <br /> Construction
             </h1>
           </div>
 

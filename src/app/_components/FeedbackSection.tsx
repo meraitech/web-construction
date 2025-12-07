@@ -1,23 +1,24 @@
 import Heading2 from "@/shared/components/ui/Heading2";
+import SectionContainer from "@/shared/components/ui/SectionContainer";
 
 export default function FeedbackSection() {
   return (
-    <section className="pt-40 flex flex-col gap-12  w-full">
-      <div className="max-w-[1920px] mx-auto px-12 w-full">
-        <div className="max-w-md">
-          <Heading2 text="Don't just take our word for it" />
-        </div>
+    <SectionContainer>
+      <div className="max-w-md">
+        <Heading2 text="Don't just take our word for it" />
       </div>
 
-      <ul className="flex items-center overflow-auto gap-4 no-scrollbar">
-        <Comment />
-        <Comment />
-        <Comment />
-        <Comment />
-        <Comment />
-        <Comment />
-      </ul>
-    </section>
+      <div className="h-104 w-full mx-auto relative ">
+        <ul className="flex absolute left-0 items-center overflow-auto gap-4 no-scrollbar">
+          <Comment />
+          <Comment />
+          <Comment />
+          <Comment />
+          <Comment />
+          <Comment />
+        </ul>
+      </div>
+    </SectionContainer>
   );
 }
 
