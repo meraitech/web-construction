@@ -41,6 +41,16 @@ export const sidebarData = {
       title: "Team",
       url: "/dashboard/team",
       icon: Users,
+      items: [
+        {
+          title: "All Team Members",
+          url: "/dashboard/team",
+        },
+        {
+          title: "Add New Member",
+          url: "/dashboard/team/new",
+        },
+      ],
     },
     {
       title: "Testimonials",

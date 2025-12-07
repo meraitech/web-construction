@@ -111,16 +111,13 @@ export function useFileUpload({ category, getEntityName }: UseFileUploadConfig) 
     // Collect files to rename
     const filesToRename: Array<{ key: string; name: string; type: string; index?: number }> = []
 
-    // Thumbnail
+    // Thumbnail (or single profile image for team)
     if (currentFiles.thumbnail?.key && currentFiles.thumbnail.name) {
-      const isNew = !initialFiles?.thumbnail ||
-        initialFiles.thumbnail.key !== currentFiles.thumbnail.key
-
-      if (isNew && currentFiles.thumbnail.name.startsWith('temp-')) {
+      if (currentFiles.thumbnail.name.startsWith('temp-')) {
         filesToRename.push({
           key: currentFiles.thumbnail.key,
           name: currentFiles.thumbnail.name,
-          type: 'thumbnail',
+          type: 'profile',
         })
       }
     }

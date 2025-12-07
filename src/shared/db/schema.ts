@@ -50,6 +50,26 @@ export const projects = pgTable("projects", {
   updated_at: timestamp("updated_at").defaultNow().notNull(),
 })
 
+// Tabel Teams
+export const teams = pgTable("teams", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  name: varchar("name", { length: 200 }).notNull(),
+  slug: varchar("slug", { length: 250 }).notNull().unique(),
+  position: varchar("position", { length: 200 }).notNull(),
+
+  profile: jsonb("profile").$type<{
+    url: string
+    key: string
+    name: string
+    size: number
+  }>(),
+
+  created_at: timestamp("created_at").defaultNow().notNull(),
+  updated_at: timestamp("updated_at").defaultNow().notNull(),
+})
+
 // Export types
 export type Project = typeof projects.$inferSelect
 export type NewProject = typeof projects.$inferInsert
+export type Team = typeof teams.$inferSelect
+export type NewTeam = typeof teams.$inferInsert
