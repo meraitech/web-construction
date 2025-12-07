@@ -56,6 +56,16 @@ export const sidebarData = {
       title: "Testimonials",
       url: "/dashboard/testimonials",
       icon: MessageSquare,
+      items: [
+        {
+          title: "All Testimonials",
+          url: "/dashboard/testimonials",
+        },
+        {
+          title: "Add New Testimonial",
+          url: "/dashboard/testimonials/new",
+        },
+      ],
     },
     {
       title: "Settings",
