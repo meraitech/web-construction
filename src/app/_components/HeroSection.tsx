@@ -39,20 +39,13 @@ export default function HeroSection() {
           src="/videos/home-hero.mov"
           className="h-full w-full object-cover duration-300 group-hover:scale-102 opacity-80 "
         ></video>
-        {/* <Image
-          src={"/images/contents/hero.jpg"}
-          width={1920}
-          height={1080}
-          alt=""
-          className=""
-        /> */}
       </div>
 
-      <div className="absolute top-0 left-0 w-screen h-screen flex justify-center items-end px-28 py-28">
+      <div className="absolute top-0 left-0 w-screen h-screen flex justify-center items-end xl:p-28 lg:p-24 md:p-20 p-14 duration-300">
         <div className="max-w-[1920px] flex justify-between items-end w-full">
           {/* info  */}
           <div className="flex flex-col gap-6">
-            <h1 className="text-8xl">
+            <h1 className="xl:text-8xl lg:text-7xl md:text-6xl text-5xl duration-300">
               Dealership <br /> builders
             </h1>
           </div>

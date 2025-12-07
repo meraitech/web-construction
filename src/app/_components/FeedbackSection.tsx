@@ -2,14 +2,14 @@ import Heading2 from "@/shared/components/ui/Heading2";
 
 export default function FeedbackSection() {
   return (
-    <section className="pt-28 flex flex-col gap-12  w-full">
+    <section className="pt-40 flex flex-col gap-12  w-full">
       <div className="max-w-[1920px] mx-auto px-12 w-full">
         <div className="max-w-md">
           <Heading2 text="Don't just take our word for it" />
         </div>
       </div>
 
-      <ul className="flex items-center overflow-auto gap-4">
+      <ul className="flex items-center overflow-auto gap-4 no-scrollbar">
         <Comment />
         <Comment />
         <Comment />
