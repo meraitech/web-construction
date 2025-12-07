@@ -1,55 +1,56 @@
 import {
-  Briefcase,
   Building2,
-  LayoutDashboard,
+  Users,
+  MessageSquare,
   Settings,
+  LayoutDashboard,
 } from "lucide-react"
-import { SidebarData } from "../_types"
 
-export const sidebarData: SidebarData = {
-  user: {
-    name: "Admin Konstruksi",
-    email: "admin@konstruksi.com",
-    avatar: "/avatars/admin.jpg",
-  },
+export const sidebarData = {
   company: {
-    name: "Merai",
-    logo: Building2,
-    plan: "Construction",
+    name: "Construction Co",
+    plan: "Enterprise",
+  },
+  user: {
+    name: "Admin User",
+    email: "admin@construction.com",
+    avatar: "/avatars/admin.jpg",
   },
   navMain: [
     {
-      title: "Overview",
+      title: "Dashboard",
       url: "/dashboard",
       icon: LayoutDashboard,
-      isActive: true,
     },
     {
-      title: "Portfolio & Proyek",
-      url: "#",
+      title: "Projects",
+      url: "/dashboard/projects",
       icon: Building2,
       items: [
-        { title: "Semua Proyek", url: "/dashboard/projects" },
-        { title: "Tambah Proyek", url: "/dashboard/projects/new" },
-        { title: "Kategori", url: "/dashboard/projects/categories" },
+        {
+          title: "All Projects",
+          url: "/dashboard/projects",
+        },
+        {
+          title: "Create New",
+          url: "/dashboard/projects/new",
+        },
       ],
     },
     {
-      title: "Layanan & Konten",
-      url: "#",
-      icon: Briefcase,
-      items: [
-        { title: "Testimoni Klien", url: "/dashboard/testimonials" },
-      ],
+      title: "Team",
+      url: "/dashboard/team",
+      icon: Users,
     },
     {
-      title: "Pengaturan Web",
-      url: "#",
+      title: "Testimonials",
+      url: "/dashboard/testimonials",
+      icon: MessageSquare,
+    },
+    {
+      title: "Settings",
+      url: "/dashboard/settings",
       icon: Settings,
-      items: [
-        { title: "Profil Perusahaan", url: "/dashboard/settings/company" },
-        { title: "Tim & Partner", url: "/dashboard/settings/team" },
-      ],
     },
   ],
 }
