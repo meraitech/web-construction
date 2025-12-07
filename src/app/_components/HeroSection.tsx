@@ -1,7 +1,6 @@
 "use client";
-import Image from "next/image";
 import { useLayoutEffect, useRef } from "react";
-import { gsap, ScrollTrigger } from "@/shared/lib/gsap";
+import { gsap } from "@/shared/lib/gsap";
 
 export default function HeroSection() {
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -29,9 +28,9 @@ export default function HeroSection() {
   return (
     <section
       ref={containerRef}
-      className="hero-welcome relative h-[200dvh] w-screen flex group z-0 "
+      className=" relative h-[200dvh] w-screen flex group z-0 "
     >
-      <div className="h-screen w-full overflow-hidden rounded-4xl scale-105">
+      <div className="hero-welcome h-screen w-screen overflow-hidden rounded-4xl scale-105">
         <video
           autoPlay
           loop
