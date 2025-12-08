@@ -19,39 +19,38 @@ interface MenuItem {
 }
 
 interface NavMainProps {
+  label: string
   items: MenuItem[]
 }
 
-/**
- * Main navigation component
- * Responsible only for orchestrating menu items based on current route
- */
-export function NavMain({ items }: NavMainProps) {
+export function NavMain({ label, items }: NavMainProps) {
   const pathname = usePathname()
 
   return (
     <SidebarGroup>
-      <SidebarGroupLabel>Platform</SidebarGroupLabel>
+      <SidebarGroupLabel>{label}</SidebarGroupLabel>
       <SidebarMenu>
         {items.map((item) => {
           const needsExactMatch = isDashboardMenu(item.url)
           const isActive = isMenuActive(pathname, item.url, needsExactMatch)
 
-          // Early return untuk simple menu
+          // Simple menu (no subitems)
           if (!item.items || item.items.length === 0) {
             return (
               <NavMenuItem
                 key={item.title}
-                title={item.title}
-                url={item.url}
-                icon={item.icon}
+                item={{
+                  title: item.title,
+                  url: item.url,
+                  icon: item.icon,
+                }}
                 isActive={isActive}
               />
             )
           }
 
+          // Collapsible menu (with subitems)
           const hasActiveSub = hasActiveSubItem(pathname, item.items)
-
           const subItemsWithActiveState = item.items.map((subItem) => ({
             ...subItem,
             isActive: isMenuActive(pathname, subItem.url),
@@ -60,12 +59,14 @@ export function NavMain({ items }: NavMainProps) {
           return (
             <NavCollapsibleMenu
               key={item.title}
-              title={item.title}
-              url={item.url}
-              icon={item.icon}
-              isActive={isActive || hasActiveSub}
-              isOpen={hasActiveSub}
+              item={{
+                title: item.title,
+                url: item.url,
+                icon: item.icon,
+              }}
               subItems={subItemsWithActiveState}
+              isActive={isActive}
+              hasActiveSub={hasActiveSub}
             />
           )
         })}

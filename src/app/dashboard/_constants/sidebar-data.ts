@@ -4,6 +4,7 @@ import {
   MessageSquare,
   Settings,
   LayoutDashboard,
+  ImageIcon,
 } from "lucide-react"
 
 export const sidebarData = {
@@ -16,61 +17,60 @@ export const sidebarData = {
     email: "admin@construction.com",
     avatar: "/avatars/admin.jpg",
   },
-  navMain: [
+  navGroups: [
     {
-      title: "Dashboard",
-      url: "/dashboard",
-      icon: LayoutDashboard,
-    },
-    {
-      title: "Projects",
-      url: "/dashboard/projects",
-      icon: Building2,
+      label: "Overview",
       items: [
         {
-          title: "All Projects",
+          title: "Dashboard",
+          url: "/dashboard",
+          icon: LayoutDashboard,
+        },
+      ],
+    },
+    {
+      label: "Content",
+      items: [
+        {
+          title: "Projects",
           url: "/dashboard/projects",
+          icon: Building2,
         },
         {
-          title: "Create New",
-          url: "/dashboard/projects/new",
-        },
-      ],
-    },
-    {
-      title: "Team",
-      url: "/dashboard/team",
-      icon: Users,
-      items: [
-        {
-          title: "All Team Members",
+          title: "Team",
           url: "/dashboard/team",
+          icon: Users,
         },
         {
-          title: "Add New Member",
-          url: "/dashboard/team/new",
+          title: "Testimonials",
+          url: "/dashboard/testimonials",
+          icon: MessageSquare,
         },
       ],
     },
     {
-      title: "Testimonials",
-      url: "/dashboard/testimonials",
-      icon: MessageSquare,
+      label: "System",
       items: [
         {
-          title: "All Testimonials",
-          url: "/dashboard/testimonials",
-        },
-        {
-          title: "Add New Testimonial",
-          url: "/dashboard/testimonials/new",
+          title: "Settings",
+          url: "/dashboard/settings",
+          icon: Settings,
+          items: [
+            {
+              title: "General",
+              url: "/dashboard/settings",
+            },
+            {
+              title: "Contact",
+              url: "/dashboard/settings/contact",
+            },
+            {
+              title: "Social Media",
+              url: "/dashboard/settings/social",
+            },
+          ],
         },
       ],
-    },
-    {
-      title: "Settings",
-      url: "/dashboard/settings",
-      icon: Settings,
     },
   ],
 }

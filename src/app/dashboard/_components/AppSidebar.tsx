@@ -1,7 +1,6 @@
 "use client"
 
 import * as React from "react"
-
 import {
   Sidebar,
   SidebarContent,
@@ -12,7 +11,6 @@ import {
   SidebarMenuItem,
   SidebarRail,
 } from "@/shared/components/ui/sidebar"
-
 import { sidebarData } from "../_constants/sidebar-data"
 import { NavMain } from "./NavMain"
 import { NavUser } from "./NavUser"
@@ -27,7 +25,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
               <a href="/dashboard">
-                <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
+                <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
                   {data.company.name.charAt(0)}
                 </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">
@@ -39,12 +37,17 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
+
       <SidebarContent>
-        <NavMain items={data.navMain} />
+        {data.navGroups.map((group, index) => (
+          <NavMain key={index} label={group.label} items={group.items} />
+        ))}
       </SidebarContent>
+
       <SidebarFooter>
         <NavUser user={data.user} />
       </SidebarFooter>
+
       <SidebarRail />
     </Sidebar>
   )

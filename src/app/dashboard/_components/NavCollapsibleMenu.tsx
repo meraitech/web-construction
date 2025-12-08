@@ -1,57 +1,47 @@
-"use client"
-
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/shared/components/ui/collapsible"
+import Link from "next/link"
+import { ChevronRight } from "lucide-react"
 import {
   SidebarMenuItem,
   SidebarMenuButton,
   SidebarMenuSub,
-  SidebarMenuSubButton,
   SidebarMenuSubItem,
+  SidebarMenuSubButton,
 } from "@/shared/components/ui/sidebar"
-import { ChevronRight, type LucideIcon } from "lucide-react"
-
-interface SubMenuItem {
-  title: string
-  url: string
-  isActive: boolean
-}
+import { type LucideIcon } from "lucide-react"
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/shared/components/ui/collapsible"
 
 interface NavCollapsibleMenuProps {
-  title: string
-  url: string
-  icon?: LucideIcon
+  item: {
+    title: string
+    url: string
+    icon?: LucideIcon
+    items?: {
+      title: string
+      url: string
+    }[]
+  }
+  subItems: {
+    title: string
+    url: string
+    isActive: boolean
+  }[]
   isActive: boolean
-  isOpen: boolean
-  subItems: SubMenuItem[]
+  hasActiveSub: boolean
 }
 
-/**
- * Collapsible menu item with sub-items
- * Responsible only for rendering a collapsible menu with children
- */
 export function NavCollapsibleMenu({
-  title,
-  url,
-  icon: Icon,
-  isActive,
-  isOpen,
+  item,
   subItems,
+  isActive,
+  hasActiveSub,
 }: NavCollapsibleMenuProps) {
   return (
-    <Collapsible
-      asChild
-      defaultOpen={isOpen}
-      className="group/collapsible"
-    >
+    <Collapsible key={item.title} asChild defaultOpen={hasActiveSub}>
       <SidebarMenuItem>
         <CollapsibleTrigger asChild>
-          <SidebarMenuButton tooltip={title} isActive={isActive}>
-            {Icon && <Icon />}
-            <span>{title}</span>
+          <SidebarMenuButton tooltip={item.title} isActive={isActive}>
+            {item.icon && <item.icon />}
+            <span>{item.title}</span>
             <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
           </SidebarMenuButton>
         </CollapsibleTrigger>
@@ -60,9 +50,9 @@ export function NavCollapsibleMenu({
             {subItems.map((subItem) => (
               <SidebarMenuSubItem key={subItem.title}>
                 <SidebarMenuSubButton asChild isActive={subItem.isActive}>
-                  <a href={subItem.url}>
+                  <Link href={subItem.url}>
                     <span>{subItem.title}</span>
-                  </a>
+                  </Link>
                 </SidebarMenuSubButton>
               </SidebarMenuSubItem>
             ))}
@@ -72,4 +62,3 @@ export function NavCollapsibleMenu({
     </Collapsible>
   )
 }
-
