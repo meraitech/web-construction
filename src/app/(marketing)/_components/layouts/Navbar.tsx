@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 "use client";
 import { useLayoutEffect, useRef } from "react";
 import { gsap } from "@/shared/lib/gsap";
@@ -16,11 +15,6 @@ import { usePathname } from "next/navigation";
 export default function Navbar() {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const pathname = usePathname();
-
-  const isHidden =
-    pathname.startsWith("/dashboard") || pathname.startsWith("/api");
-
-  if (isHidden) return null;
 
   useLayoutEffect(() => {
     if (pathname !== "/") return;
