@@ -1,5 +1,6 @@
 import { createUploadthing, type FileRouter } from "uploadthing/next"
 import { UTFiles } from "uploadthing/server"
+import { requireAuth } from "@/features/auth/utils/middleware"
 
 const f = createUploadthing()
 
@@ -22,6 +23,7 @@ export const ourFileRouter = {
     },
   })
     .middleware(async ({ files }) => {
+      const user = await requireAuth()
       const fileOverrides = files.map((file) => {
         const tempName = generateTempFilename(file.name)
         return { ...file, name: tempName }
@@ -30,6 +32,7 @@ export const ourFileRouter = {
       return {
         [UTFiles]: fileOverrides,
         renamedFiles: fileOverrides.map(f => f.name),
+        userId: user.id
       }
     })
     .onUploadComplete(async ({ file, metadata }) => {
@@ -37,6 +40,7 @@ export const ourFileRouter = {
       return {
         url: file.ufsUrl,
         uploadedFileName: file.name,
+        uploadedBy: metadata.userId
       }
     }),
 
@@ -48,6 +52,7 @@ export const ourFileRouter = {
     },
   })
     .middleware(async ({ files }) => {
+      const user = await requireAuth()
       const fileOverrides = files.map((file) => {
         const tempName = generateTempFilename(file.name)
         return { ...file, name: tempName }
@@ -56,6 +61,7 @@ export const ourFileRouter = {
       return {
         [UTFiles]: fileOverrides,
         renamedFiles: fileOverrides.map(f => f.name),
+        userId: user.id
       }
     })
     .onUploadComplete(async ({ file, metadata }) => {
@@ -63,6 +69,7 @@ export const ourFileRouter = {
       return {
         url: file.ufsUrl,
         uploadedFileName: file.name,
+        uploadedBy: metadata.userId
       }
     }),
 
@@ -74,17 +81,19 @@ export const ourFileRouter = {
     },
   })
     .middleware(async ({ files }) => {
+      const user = await requireAuth()
       const fileOverrides = files.map((file) => {
         const tempName = generateTempFilename(file.name)
         return { ...file, name: tempName }
       })
 
-      return { [UTFiles]: fileOverrides }
+      return { [UTFiles]: fileOverrides, userId: user.id }
     })
-    .onUploadComplete(async ({ file }) => {
+    .onUploadComplete(async ({ file, metadata }) => {
       return {
         url: file.ufsUrl,
         uploadedFileName: file.name,
+        uploadedBy: metadata.userId
       }
     }),
 
@@ -96,17 +105,19 @@ export const ourFileRouter = {
     },
   })
     .middleware(async ({ files }) => {
+      const user = await requireAuth()
       const fileOverrides = files.map((file) => {
         const tempName = generateTempFilename(file.name)
         return { ...file, name: tempName }
       })
 
-      return { [UTFiles]: fileOverrides }
+      return { [UTFiles]: fileOverrides, userId: user.id }
     })
-    .onUploadComplete(async ({ file }) => {
+    .onUploadComplete(async ({ file, metadata }) => {
       return {
         url: file.ufsUrl,
         uploadedFileName: file.name,
+        uploadedBy: metadata.userId
       }
     }),
 } satisfies FileRouter
