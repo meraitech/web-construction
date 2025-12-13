@@ -1,8 +1,8 @@
 "use client"
 
+import Link from "next/link"
 import {
   BadgeCheck,
-  Bell,
   ChevronsUpDown,
   LogOut
 } from "lucide-react"
@@ -87,13 +87,11 @@ export function NavUser({
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <BadgeCheck className="mr-2 size-4" />
-                Account
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Bell className="mr-2 size-4" />
-                Notifications
+              <DropdownMenuItem asChild>
+                <Link href="/dashboard/settings/account">
+                  <BadgeCheck className="mr-2 size-4" />
+                  Account
+                </Link>
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
