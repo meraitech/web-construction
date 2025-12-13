@@ -29,7 +29,7 @@ export default function RootLayout({
     <html lang="en">
       <ReactLenis root>
         <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col justify-between`}
+          className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col justify-between no-track`}
         >
           <Navbar />
           <main>{children}</main>
