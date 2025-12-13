@@ -7,8 +7,9 @@ import { AppSidebar } from "./_components/AppSidebar"
 import { DashboardBreadcrumb } from "./_components/DashboardBreadcrumb"
 import { requireAuth } from "@/features/auth/utils/middleware"
 import { getSetting } from "@/features/settings/services/settings.service"
-import { ThemeProvider } from "@/shared/components/theme-provider"
-import { ModeToggle } from "@/shared/components/mode-toggle"
+import { ThemeProvider } from "./_components/ThemeProvider"
+import { ModeToggle } from "./_components/ModeToggle"
+import { HeaderCalendar } from "./_components/HeaderCalendar"
 
 export default async function AdminLayout({
   children,
@@ -35,7 +36,8 @@ export default async function AdminLayout({
                   <SidebarTrigger className="-ml-1 border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50" />
                   <DashboardBreadcrumb />
                 </div>
-                <div className="px-4">
+                <div className="px-4 flex items-center gap-2">
+                  <HeaderCalendar />
                   <ModeToggle />
                 </div>
               </header>
