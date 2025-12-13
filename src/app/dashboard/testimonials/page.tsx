@@ -9,7 +9,8 @@ export default async function TestimonialsPage() {
   const { data: testimonials } = await getTestimonials()
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-6">
+      {/* Header */}
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Testimonials</h1>
@@ -17,16 +18,17 @@ export default async function TestimonialsPage() {
             Kelola testimonial dari klien Anda
           </p>
         </div>
-        <Button asChild>
-          <Link href="/dashboard/testimonials/new">
+        <Link href="/dashboard/testimonials/new">
+          <Button>
             <PlusCircle className="mr-2 h-4 w-4" />
-            Tambah Testimonial
-          </Link>
-        </Button>
+            Add Testimonial
+          </Button>
+        </Link>
       </div>
 
-      <Suspense fallback={<div>Loading...</div>}>
-        <TestimonialTable testimonials={testimonials} />
+      {/* Table */}
+      <Suspense fallback={<div className="p-8 text-center">Loading...</div>}>
+        <TestimonialTable data={testimonials || []} />
       </Suspense>
     </div>
   )

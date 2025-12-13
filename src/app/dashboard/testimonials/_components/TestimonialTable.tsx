@@ -1,123 +1,92 @@
 "use client"
 
-import { useState } from "react"
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/shared/components/ui/table"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/shared/components/ui/dropdown-menu"
-import { Button } from "@/shared/components/ui/button"
-import { MoreHorizontal, Eye, Pencil, Trash2 } from "lucide-react"
-import Link from "next/link"
+import { Pencil, Trash2, MessageSquare, User, Briefcase } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { Testimonial } from "@/features/testimonial/types/testimonial.types"
 import { deleteTestimonial } from "@/features/testimonial/services/testimonial.actions"
+import { DataTable, DataTableAction, DataTableColumn } from "../../_components/DataTable"
 
 interface TestimonialTableProps {
-  testimonials: Testimonial[]
+  data: Testimonial[]
 }
 
-export function TestimonialTable({ testimonials }: TestimonialTableProps) {
+export function TestimonialTable({ data }: TestimonialTableProps) {
   const router = useRouter()
-  const [isDeleting, setIsDeleting] = useState<string | null>(null)
 
-  const handleDelete = async (id: string, name: string) => {
-    if (!confirm(`Yakin ingin menghapus testimonial dari "${name}"?`)) return
+  const columns: DataTableColumn<Testimonial>[] = [
+    {
+      header: "Klien",
+      headerClassName: "w-[280px]",
+      className: "py-4",
+      cell: (testimonial) => (
+        <div className="flex items-center gap-4">
+          <div className="flex flex-col">
+            <span className="font-medium text-slate-900 group-hover:text-slate-950 transition-colors">
+              {testimonial.client_name}
+            </span>
+          </div>
+        </div>
+      ),
+    },
+    {
+      header: "Posisi",
+      cell: (testimonial) => (
+        <div className="flex items-center gap-2 text-slate-600">
+          <Briefcase className="w-4 h-4 text-slate-400" />
+          <span className="text-sm">{testimonial.position}</span>
+        </div>
+      ),
+    },
+    {
+      header: "Pesan",
+      cell: (testimonial) => (
+        <p className="text-sm text-slate-600 truncate max-w-[300px]">
+          {testimonial.message}
+        </p>
+      ),
+    },
+  ]
 
-    setIsDeleting(id)
-    const result = await deleteTestimonial(id)
-
-    if (result.success) {
-      router.refresh()
-    } else {
-      alert(result.message)
-    }
-    setIsDeleting(null)
-  }
-
-  if (testimonials.length === 0) {
-    return (
-      <div className="flex flex-col items-center justify-center py-12 text-center">
-        <p className="text-muted-foreground">Belum ada testimonial.</p>
-        <Button asChild className="mt-4">
-          <Link href="/dashboard/testimonials/new">Tambah Testimonial Pertama</Link>
-        </Button>
-      </div>
-    )
-  }
+  const actions: DataTableAction<Testimonial>[] = [
+    {
+      icon: Pencil,
+      label: "Edit Testimonial",
+      onClick: (testimonial) => {
+        router.push(`/dashboard/testimonials/${testimonial.id}/edit`)
+      },
+    },
+    {
+      icon: Trash2,
+      label: "Hapus Testimonial",
+      variant: "destructive",
+      onClick: async (testimonial) => {
+        if (!confirm(`Yakin ingin menghapus testimonial dari "${testimonial.client_name}"?`))
+          return
+        const result = await deleteTestimonial(testimonial.id)
+        if (result.success) {
+          router.refresh()
+        } else {
+          alert(result.message)
+        }
+      },
+    },
+  ]
 
   return (
-    <div className="rounded-md border">
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead>Nama Klien</TableHead>
-            <TableHead>Posisi</TableHead>
-            <TableHead>Pesan</TableHead>
-            <TableHead className="text-right">Aksi</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {testimonials.map((testimonial) => (
-            <TableRow key={testimonial.id}>
-              <TableCell className="font-medium">{testimonial.client_name}</TableCell>
-              <TableCell>{testimonial.position}</TableCell>
-              <TableCell className="max-w-md truncate">
-                {testimonial.message}
-              </TableCell>
-              <TableCell className="text-right">
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button
-                      variant="ghost"
-                      className="h-8 w-8 p-0"
-                      disabled={isDeleting === testimonial.id}
-                    >
-                      <span className="sr-only">Open menu</span>
-                      <MoreHorizontal className="h-4 w-4" />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end">
-                    <DropdownMenuLabel>Aksi</DropdownMenuLabel>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem asChild>
-                      <Link href={`/dashboard/testimonials/${testimonial.id}`}>
-                        <Eye className="mr-2 h-4 w-4" />
-                        Lihat Detail
-                      </Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <Link href={`/dashboard/testimonials/${testimonial.id}/edit`}>
-                        <Pencil className="mr-2 h-4 w-4" />
-                        Edit
-                      </Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem
-                      className="text-destructive"
-                      onClick={() => handleDelete(testimonial.id, testimonial.client_name)}
-                    >
-                      <Trash2 className="mr-2 h-4 w-4" />
-                      Hapus
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </div>
+    <DataTable
+      data={data}
+      columns={columns}
+      actions={actions}
+      onRowClick={(testimonial) => router.push(`/dashboard/testimonials/${testimonial.id}`)}
+      emptyState={{
+        icon: MessageSquare,
+        title: "Belum ada testimonial",
+        action: {
+          label: "Tambah Testimonial Pertama",
+          href: "/dashboard/testimonials/new",
+        },
+      }}
+      keyExtractor={(testimonial) => testimonial.id}
+    />
   )
 }
