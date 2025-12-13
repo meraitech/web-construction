@@ -55,7 +55,7 @@ export function DashboardListCard<T>({
                     {items.map((item, index) => (
                         <div
                             key={index}
-                            className="border-b last:border-0 pb-4 last:pb-0"
+                            className="border-b border-border last:border-0 pb-4 last:pb-0"
                         >
                             {renderItem(item)}
                         </div>

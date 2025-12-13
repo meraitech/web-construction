@@ -16,10 +16,10 @@ export function DashboardPageHeader({ title, description, action }: DashboardPag
     return (
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-2">
             <div className="space-y-1">
-                <h1 className="text-3xl font-bold tracking-tight text-slate-900">
+                <h1 className="text-3xl font-bold tracking-tight text-foreground">
                     {title}
                 </h1>
-                <p className="text-slate-500">
+                <p className="text-muted-foreground">
                     {description}
                 </p>
             </div>

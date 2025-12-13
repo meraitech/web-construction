@@ -76,15 +76,15 @@ export function DataTable<T>({
   if (data.length === 0 && emptyState) {
     const Icon = emptyState.icon
     return (
-      <div className="flex flex-col items-center justify-center py-16 px-4 border-2 border-dashed border-slate-200 rounded-2xl bg-slate-50/50">
-        <div className="w-16 h-16 rounded-full bg-slate-100 flex items-center justify-center mb-4">
-          <Icon className="w-8 h-8 text-slate-400" />
+      <div className="flex flex-col items-center justify-center py-16 px-4 border-2 border-dashed border-border rounded-2xl bg-muted/30">
+        <div className="w-16 h-16 rounded-full bg-muted flex items-center justify-center mb-4">
+          <Icon className="w-8 h-8 text-muted-foreground" />
         </div>
-        <p className="text-slate-500 mb-2 text-center font-medium">
+        <p className="text-foreground mb-2 text-center font-medium">
           {emptyState.title}
         </p>
         {emptyState.description && (
-          <p className="text-sm text-slate-400 mb-6 text-center">
+          <p className="text-sm text-muted-foreground mb-6 text-center">
             {emptyState.description}
           </p>
         )}
@@ -100,20 +100,20 @@ export function DataTable<T>({
   }
 
   return (
-    <div className="rounded-xl border border-slate-200 bg-white shadow-sm overflow-hidden px-2">
+    <div className="rounded-xl border border-border bg-card shadow-sm overflow-hidden px-2">
       <Table>
         <TableHeader>
-          <TableRow className="bg-slate-50/50 hover:bg-slate-50 border-b border-slate-200">
+          <TableRow className="bg-muted/50 hover:bg-muted/50 border-b border-border">
             {columns.map((column, index) => (
               <TableHead
                 key={index}
-                className={`font-semibold text-slate-700 ${column.headerClassName || ""}`}
+                className={`font-semibold text-foreground ${column.headerClassName || ""}`}
               >
                 {column.header}
               </TableHead>
             ))}
             {actions && actions.length > 0 && (
-              <TableHead className="font-semibold text-slate-700 text-right w-[120px]">
+              <TableHead className="font-semibold text-foreground text-right w-[120px]">
                 Aksi
               </TableHead>
             )}
@@ -124,7 +124,7 @@ export function DataTable<T>({
             <TableRow
               key={keyExtractor(item)}
               onClick={() => onRowClick?.(item)}
-              className={`group border-b border-slate-100 hover:bg-slate-50/50 transition-colors ${onRowClick ? "cursor-pointer" : ""
+              className={`group border-b border-border hover:bg-muted/50 transition-colors ${onRowClick ? "cursor-pointer" : ""
                 }`}
             >
               {columns.map((column, index) => (
@@ -153,9 +153,9 @@ export function DataTable<T>({
                           size="icon"
                           className={
                             action.className ||
-                            `h-8 w-8 text-slate-600 ${isDestructive
-                              ? "hover:text-red-600 hover:bg-red-50"
-                              : "hover:text-blue-600 hover:bg-blue-50"
+                            `h-8 w-8 text-muted-foreground ${isDestructive
+                              ? "hover:text-destructive hover:bg-destructive/10"
+                              : "hover:text-primary hover:bg-primary/10"
                             } transition-colors`
                           }
                           onClick={(e) => handleAction(e, action, item)}
