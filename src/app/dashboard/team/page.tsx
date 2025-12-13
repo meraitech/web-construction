@@ -9,7 +9,8 @@ export default async function TeamPage() {
   const { data: teams } = await getTeams()
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-6">
+      {/* Header */}
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Team</h1>
@@ -17,16 +18,17 @@ export default async function TeamPage() {
             Kelola team member perusahaan Anda
           </p>
         </div>
-        <Button asChild>
-          <Link href="/dashboard/team/new">
+        <Link href="/dashboard/team/new">
+          <Button>
             <PlusCircle className="mr-2 h-4 w-4" />
-            Tambah Team Member
-          </Link>
-        </Button>
+            Tambah Member
+          </Button>
+        </Link>
       </div>
 
-      <Suspense fallback={<div>Loading...</div>}>
-        <TeamTable teams={teams} />
+      {/* Table */}
+      <Suspense fallback={<div className="p-8 text-center">Loading...</div>}>
+        <TeamTable data={teams || []} />
       </Suspense>
     </div>
   )

@@ -1,0 +1,179 @@
+"use client"
+
+import { useState } from "react"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/shared/components/ui/table"
+import { Button } from "@/shared/components/ui/button"
+import Link from "next/link"
+import { useRouter } from "next/navigation"
+import { LucideIcon } from "lucide-react"
+
+export interface DataTableColumn<T> {
+  header: string
+  accessor?: keyof T
+  cell?: (item: T) => React.ReactNode
+  className?: string
+  headerClassName?: string
+}
+
+export interface DataTableAction<T> {
+  icon: LucideIcon
+  label: string
+  onClick: (item: T) => void | Promise<void>
+  variant?: "default" | "destructive"
+  className?: string
+}
+
+export interface DataTableProps<T> {
+  data: T[]
+  columns: DataTableColumn<T>[]
+  actions?: DataTableAction<T>[]
+  onRowClick?: (item: T) => void
+  emptyState?: {
+    icon: LucideIcon
+    title: string
+    description?: string
+    action?: {
+      label: string
+      href: string
+    }
+  }
+  keyExtractor: (item: T) => string
+}
+
+export function DataTable<T>({
+  data,
+  columns,
+  actions,
+  onRowClick,
+  emptyState,
+  keyExtractor,
+}: DataTableProps<T>) {
+  const router = useRouter()
+  const [isProcessing, setIsProcessing] = useState<string | null>(null)
+
+  const handleAction = async (
+    e: React.MouseEvent,
+    action: DataTableAction<T>,
+    item: T
+  ) => {
+    e.stopPropagation()
+    setIsProcessing(keyExtractor(item))
+
+    try {
+      await action.onClick(item)
+    } finally {
+      setIsProcessing(null)
+    }
+  }
+
+  if (data.length === 0 && emptyState) {
+    const Icon = emptyState.icon
+    return (
+      <div className="flex flex-col items-center justify-center py-16 px-4 border-2 border-dashed border-slate-200 rounded-2xl bg-slate-50/50">
+        <div className="w-16 h-16 rounded-full bg-slate-100 flex items-center justify-center mb-4">
+          <Icon className="w-8 h-8 text-slate-400" />
+        </div>
+        <p className="text-slate-500 mb-2 text-center font-medium">
+          {emptyState.title}
+        </p>
+        {emptyState.description && (
+          <p className="text-sm text-slate-400 mb-6 text-center">
+            {emptyState.description}
+          </p>
+        )}
+        {emptyState.action && (
+          <Button asChild className="shadow-sm">
+            <Link href={emptyState.action.href}>
+              {emptyState.action.label}
+            </Link>
+          </Button>
+        )}
+      </div>
+    )
+  }
+
+  return (
+    <div className="rounded-xl border border-slate-200 bg-white shadow-sm overflow-hidden px-2">
+      <Table>
+        <TableHeader>
+          <TableRow className="bg-slate-50/50 hover:bg-slate-50 border-b border-slate-200">
+            {columns.map((column, index) => (
+              <TableHead
+                key={index}
+                className={`font-semibold text-slate-700 ${column.headerClassName || ""}`}
+              >
+                {column.header}
+              </TableHead>
+            ))}
+            {actions && actions.length > 0 && (
+              <TableHead className="font-semibold text-slate-700 text-right w-[120px]">
+                Aksi
+              </TableHead>
+            )}
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {data.map((item) => (
+            <TableRow
+              key={keyExtractor(item)}
+              onClick={() => onRowClick?.(item)}
+              className={`group border-b border-slate-100 hover:bg-slate-50/50 transition-colors ${onRowClick ? "cursor-pointer" : ""
+                }`}
+            >
+              {columns.map((column, index) => (
+                <TableCell
+                  key={index}
+                  className={column.className || ""}
+                >
+                  {column.cell
+                    ? column.cell(item)
+                    : column.accessor
+                      ? String(item[column.accessor])
+                      : null}
+                </TableCell>
+              ))}
+              {actions && actions.length > 0 && (
+                <TableCell className="text-right">
+                  <div className="flex items-center justify-end gap-1">
+                    {actions.map((action, index) => {
+                      const Icon = action.icon
+                      const isDestructive = action.variant === "destructive"
+
+                      return (
+                        <Button
+                          key={index}
+                          variant="ghost"
+                          size="icon"
+                          className={
+                            action.className ||
+                            `h-8 w-8 text-slate-600 ${isDestructive
+                              ? "hover:text-red-600 hover:bg-red-50"
+                              : "hover:text-blue-600 hover:bg-blue-50"
+                            } transition-colors`
+                          }
+                          onClick={(e) => handleAction(e, action, item)}
+                          disabled={isProcessing === keyExtractor(item)}
+                          title={action.label}
+                        >
+                          <Icon className="h-4 w-4" />
+                        </Button>
+                      )
+                    })}
+                  </div>
+                </TableCell>
+              )}
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </div>
+  )
+}
+
