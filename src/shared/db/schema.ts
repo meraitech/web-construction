@@ -80,6 +80,16 @@ export const testimonials = pgTable("testimonials", {
   updated_at: timestamp("updated_at").defaultNow().notNull(),
 })
 
+// Tabel Admin Users
+export const adminUsers = pgTable("admin_users", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  username: varchar("username", { length: 100 }).notNull().unique(),
+  password: varchar("password", { length: 255 }).notNull(),
+  name: varchar("name", { length: 200 }).notNull(),
+  created_at: timestamp("created_at").defaultNow().notNull(),
+  updated_at: timestamp("updated_at").defaultNow().notNull(),
+})
+
 // Export types
 export type Project = typeof projects.$inferSelect
 export type NewProject = typeof projects.$inferInsert
@@ -87,3 +97,5 @@ export type Team = typeof teams.$inferSelect
 export type NewTeam = typeof teams.$inferInsert
 export type Testimonial = typeof testimonials.$inferSelect
 export type NewTestimonial = typeof testimonials.$inferInsert
+export type AdminUser = typeof adminUsers.$inferSelect
+export type NewAdminUser = typeof adminUsers.$inferInsert

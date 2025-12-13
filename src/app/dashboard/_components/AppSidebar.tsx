@@ -1,21 +1,12 @@
 "use client"
 
-import * as React from "react"
-import {
-  Sidebar,
-  SidebarContent,
-  SidebarFooter,
-  SidebarHeader,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  SidebarRail,
-} from "@/shared/components/ui/sidebar"
+import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarRail } from "@/shared/components/ui/sidebar"
 import { sidebarData } from "../_constants/sidebar-data"
 import { NavMain } from "./NavMain"
 import { NavUser } from "./NavUser"
+import { AuthSession } from "@/features/auth/types/auth.types"
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function AppSidebar({ user, ...props }: React.ComponentProps<typeof Sidebar> & { user: AuthSession | null }) {
   const data = sidebarData
 
   return (
@@ -45,7 +36,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarContent>
 
       <SidebarFooter>
-        <NavUser user={data.user} />
+        {user && <NavUser user={user} />}
       </SidebarFooter>
 
       <SidebarRail />
