@@ -40,28 +40,28 @@ export default async function TestimonialDetailPage({
       <div className="grid gap-6">
         <Card>
           <CardHeader>
-            <CardTitle>Informasi Testimonial</CardTitle>
+            <CardTitle>Testimonial Information</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div>
-              <p className="text-sm font-medium text-muted-foreground">Nama Klien</p>
+              <p className="text-sm font-medium text-muted-foreground">Client Name</p>
               <p className="text-lg">{testimonial.client_name}</p>
             </div>
             <Separator />
             <div>
-              <p className="text-sm font-medium text-muted-foreground">Posisi</p>
+              <p className="text-sm font-medium text-muted-foreground">Position</p>
               <p className="text-lg">{testimonial.position}</p>
             </div>
             <Separator />
             <div>
-              <p className="text-sm font-medium text-muted-foreground">Pesan Testimonial</p>
+              <p className="text-sm font-medium text-muted-foreground">Message</p>
               <p className="text-lg whitespace-pre-wrap">{testimonial.message}</p>
             </div>
             <Separator />
             <div>
-              <p className="text-sm font-medium text-muted-foreground">Dibuat pada</p>
+              <p className="text-sm font-medium text-muted-foreground">Created at</p>
               <p className="text-lg">
-                {new Date(testimonial.created_at).toLocaleDateString("id-ID", {
+                {new Date(testimonial.created_at).toLocaleDateString("en-US", {
                   day: "numeric",
                   month: "long",
                   year: "numeric",

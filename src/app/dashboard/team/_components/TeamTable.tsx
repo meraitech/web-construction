@@ -73,10 +73,10 @@ export function TeamTable({ data }: TeamTableProps) {
     },
     {
       icon: Trash2,
-      label: "Hapus Team Member",
+      label: "Delete Team Member",
       variant: "destructive",
       onClick: async (team) => {
-        if (!confirm(`Yakin ingin menghapus team member "${team.name}"?`))
+        if (!confirm(`Are you sure you want to delete team member "${team.name}"?`))
           return
         const result = await deleteTeam(team.id)
         if (result.success) {
@@ -96,9 +96,9 @@ export function TeamTable({ data }: TeamTableProps) {
       onRowClick={(team) => router.push(`/dashboard/team/${team.id}`)}
       emptyState={{
         icon: User,
-        title: "Belum ada team member",
+        title: "No team members yet",
         action: {
-          label: "Tambah Team Member Pertama",
+          label: "Add First Team Member",
           href: "/dashboard/team/new",
         },
       }}

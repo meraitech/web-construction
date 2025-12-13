@@ -13,9 +13,9 @@ export default async function ProjectsPage() {
       <div className="flex flex-col gap-6">
         <DashboardPageHeader
           title="Projects"
-          description="Kelola semua proyek konstruksi Anda"
+          description="Manage all your construction projects"
           action={{
-            label: "Tambah Proyek",
+            label: "Add Project",
             href: "/dashboard/projects/new",
             icon: PlusCircle,
           }}

@@ -10,11 +10,11 @@ interface RecentTestimonialsProps {
 export function RecentTestimonials({ testimonials }: RecentTestimonialsProps) {
   return (
     <DashboardListCard
-      title="Testimoni Terbaru"
-      description="5 testimoni terbaru yang ditambahkan"
+      title="Recent Testimonials"
+      description="5 most recently added testimonials"
       viewAllHref="/dashboard/testimonials"
       items={testimonials}
-      emptyMessage="Belum ada testimoni"
+      emptyMessage="No testimonials yet"
       renderItem={(testimonial) => (
         <div className="space-y-2">
           <div className="flex items-start gap-2">

@@ -43,7 +43,7 @@ export function ProjectTable({ projects }: ProjectTableProps) {
 
   const columns: DataTableColumn<Project>[] = [
     {
-      header: "Proyek",
+      header: "Project",
       headerClassName: "w-[280px]",
       className: "py-4",
       cell: (project) => (
@@ -71,7 +71,7 @@ export function ProjectTable({ projects }: ProjectTableProps) {
       ),
     },
     {
-      header: "Lokasi",
+      header: "Location",
       cell: (project) => (
         <div className="flex items-center gap-2 text-slate-600">
           <MapPin className="w-4 h-4 text-slate-400" />
@@ -80,7 +80,7 @@ export function ProjectTable({ projects }: ProjectTableProps) {
       ),
     },
     {
-      header: "Tipe",
+      header: "Type",
       cell: (project) => (
         <span className="text-sm text-slate-700 capitalize">
           {project.project_type.replace("_", " ")}
@@ -102,13 +102,13 @@ export function ProjectTable({ projects }: ProjectTableProps) {
       },
     },
     {
-      header: "Tanggal Mulai",
+      header: "Start Date",
       cell: (project) => (
         <div className="flex items-center gap-2 text-slate-600">
           <Calendar className="w-4 h-4 text-slate-400" />
           <span className="text-sm">
             {project.start_date
-              ? new Date(project.start_date).toLocaleDateString("id-ID", {
+              ? new Date(project.start_date).toLocaleDateString("en-US", {
                 day: "numeric",
                 month: "short",
                 year: "numeric",
@@ -123,17 +123,17 @@ export function ProjectTable({ projects }: ProjectTableProps) {
   const actions: DataTableAction<Project>[] = [
     {
       icon: Pencil,
-      label: "Edit Proyek",
+      label: "Edit Project",
       onClick: (project) => {
         router.push(`/dashboard/projects/${project.id}/edit`)
       },
     },
     {
       icon: Trash2,
-      label: "Hapus Proyek",
+      label: "Delete Project",
       variant: "destructive",
       onClick: async (project) => {
-        if (!confirm(`Yakin ingin menghapus proyek "${project.title}"?`)) return
+        if (!confirm(`Are you sure you want to delete project "${project.title}"?`)) return
         const result = await deleteProject(project.id)
         if (result.success) {
           router.refresh()
@@ -152,9 +152,9 @@ export function ProjectTable({ projects }: ProjectTableProps) {
       onRowClick={(project) => router.push(`/dashboard/projects/${project.id}`)}
       emptyState={{
         icon: ImageIcon,
-        title: "Belum ada proyek yang dibuat",
+        title: "No projects created yet",
         action: {
-          label: "Tambah Proyek Pertama",
+          label: "Add First Project",
           href: "/dashboard/projects/new",
         },
       }}

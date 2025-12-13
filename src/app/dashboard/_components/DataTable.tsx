@@ -114,7 +114,7 @@ export function DataTable<T>({
             ))}
             {actions && actions.length > 0 && (
               <TableHead className="font-semibold text-foreground text-right w-[120px]">
-                Aksi
+                Actions
               </TableHead>
             )}
           </TableRow>

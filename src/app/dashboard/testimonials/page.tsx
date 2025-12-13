@@ -12,7 +12,7 @@ export default async function TestimonialsPage() {
     <div className="space-y-6">
       <DashboardPageHeader
         title="Testimonials"
-        description="Kelola testimonial dari klien Anda"
+        description="Manage testimonials from your clients"
         action={{
           label: "Add Testimonial",
           href: "/dashboard/testimonials/new",

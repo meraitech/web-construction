@@ -8,17 +8,17 @@ export default async function GeneralSettingsPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight">Pengaturan Umum</h1>
+        <h1 className="text-3xl font-bold tracking-tight">General Settings</h1>
         <p className="text-muted-foreground mt-2">
-          Kelola informasi umum dan kontak perusahaan Anda
+          Manage your company's general and contact information
         </p>
       </div>
 
       <Card>
         <CardHeader>
-          <CardTitle>Informasi Perusahaan</CardTitle>
+          <CardTitle>Company Information</CardTitle>
           <CardDescription>
-            Informasi ini akan ditampilkan di website Anda
+            This information will be displayed on your website
           </CardDescription>
         </CardHeader>
         <CardContent>

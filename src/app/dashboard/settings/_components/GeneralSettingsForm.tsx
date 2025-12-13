@@ -34,11 +34,10 @@ export function GeneralSettingsForm({ initialData }: GeneralSettingsFormProps) {
     <form action={handleSubmit} className="space-y-6">
       {message && (
         <div
-          className={`p-4 rounded-lg border ${
-            message.type === "success"
+          className={`p-4 rounded-lg border ${message.type === "success"
               ? "bg-green-50 border-green-200 text-green-800"
               : "bg-red-50 border-red-200 text-red-800"
-          }`}
+            }`}
         >
           {message.text}
         </div>
@@ -47,13 +46,13 @@ export function GeneralSettingsForm({ initialData }: GeneralSettingsFormProps) {
       <div className="space-y-4">
         <div>
           <label htmlFor="company_name" className="block text-sm font-semibold text-gray-700 mb-2">
-            Nama Perusahaan
+            Company Name
           </label>
           <Input
             id="company_name"
             name="company_name"
             type="text"
-            placeholder="Contoh: PT Konstruksi Indonesia"
+            placeholder="e.g. Construction Co Ltd"
             defaultValue={initialData.company_name}
             required
           />
@@ -61,12 +60,12 @@ export function GeneralSettingsForm({ initialData }: GeneralSettingsFormProps) {
 
         <div>
           <label htmlFor="company_description" className="block text-sm font-semibold text-gray-700 mb-2">
-            Deskripsi Perusahaan
+            Company Description
           </label>
           <Textarea
             id="company_description"
             name="company_description"
-            placeholder="Deskripsi singkat tentang perusahaan Anda"
+            placeholder="Brief description of your company"
             defaultValue={initialData.company_description}
             required
             rows={4}
@@ -75,12 +74,12 @@ export function GeneralSettingsForm({ initialData }: GeneralSettingsFormProps) {
 
         <div>
           <label htmlFor="address" className="block text-sm font-semibold text-gray-700 mb-2">
-            Alamat
+            Address
           </label>
           <Textarea
             id="address"
             name="address"
-            placeholder="Alamat lengkap perusahaan"
+            placeholder="Full company address"
             defaultValue={initialData.address}
             required
             rows={3}
@@ -89,13 +88,13 @@ export function GeneralSettingsForm({ initialData }: GeneralSettingsFormProps) {
 
         <div>
           <label htmlFor="phone" className="block text-sm font-semibold text-gray-700 mb-2">
-            Nomor Telepon
+            Phone Number
           </label>
           <Input
             id="phone"
             name="phone"
             type="tel"
-            placeholder="+62 21 1234567"
+            placeholder="+1 234 567 890"
             defaultValue={initialData.phone}
             required
           />
@@ -109,7 +108,7 @@ export function GeneralSettingsForm({ initialData }: GeneralSettingsFormProps) {
             id="email"
             name="email"
             type="email"
-            placeholder="info@perusahaan.com"
+            placeholder="info@company.com"
             defaultValue={initialData.email}
             required
           />
@@ -117,7 +116,7 @@ export function GeneralSettingsForm({ initialData }: GeneralSettingsFormProps) {
       </div>
 
       <Button type="submit" disabled={loading} className="w-full md:w-auto">
-        {loading ? "Menyimpan..." : "Simpan Perubahan"}
+        {loading ? "Saving..." : "Save Changes"}
       </Button>
     </form>
   )

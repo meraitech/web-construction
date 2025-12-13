@@ -35,11 +35,10 @@ export function ProfileForm({ initialData }: ProfileFormProps) {
     <form action={handleSubmit} className="space-y-6">
       {message && (
         <div
-          className={`p-4 rounded-lg border ${
-            message.type === "success"
+          className={`p-4 rounded-lg border ${message.type === "success"
               ? "bg-green-50 border-green-200 text-green-800"
               : "bg-red-50 border-red-200 text-red-800"
-          }`}
+            }`}
         >
           {message.text}
         </div>
@@ -48,13 +47,13 @@ export function ProfileForm({ initialData }: ProfileFormProps) {
       <div className="space-y-4">
         <div>
           <label htmlFor="name" className="block text-sm font-semibold text-gray-700 mb-2">
-            Nama Lengkap
+            Full Name
           </label>
           <Input
             id="name"
             name="name"
             type="text"
-            placeholder="Masukkan nama lengkap"
+            placeholder="Enter full name"
             defaultValue={initialData.name}
             required
           />
@@ -68,7 +67,7 @@ export function ProfileForm({ initialData }: ProfileFormProps) {
             id="username"
             name="username"
             type="text"
-            placeholder="Masukkan username"
+            placeholder="Enter username"
             defaultValue={initialData.username}
             required
           />
@@ -76,7 +75,7 @@ export function ProfileForm({ initialData }: ProfileFormProps) {
       </div>
 
       <Button type="submit" disabled={loading} className="w-full md:w-auto">
-        {loading ? "Menyimpan..." : "Simpan Perubahan"}
+        {loading ? "Saving..." : "Save Changes"}
       </Button>
     </form>
   )

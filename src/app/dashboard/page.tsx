@@ -18,43 +18,43 @@ export default async function DashboardPage() {
       <div>
         <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
         <p className="text-muted-foreground mt-2">
-          Ringkasan aktivitas dan statistik website Anda
+          Summary of your website activity and statistics
         </p>
       </div>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
         <StatsCard
-          title="Total Proyek"
+          title="Total Projects"
           value={stats.totalProjects}
-          description="Semua proyek"
+          description="All projects"
           icon={Building2}
           iconColor="text-blue-600"
         />
         <StatsCard
-          title="Proyek Aktif"
+          title="Active Projects"
           value={stats.activeProjects}
-          description="Sedang berjalan"
+          description="In progress"
           icon={Clock}
           iconColor="text-yellow-600"
         />
         <StatsCard
-          title="Proyek Selesai"
+          title="Completed Projects"
           value={stats.completedProjects}
-          description="Telah diselesaikan"
+          description="Completed"
           icon={CheckCircle}
           iconColor="text-green-600"
         />
         <StatsCard
-          title="Anggota Tim"
+          title="Team Members"
           value={stats.totalTeams}
-          description="Total anggota"
+          description="Total members"
           icon={Users}
           iconColor="text-purple-600"
         />
         <StatsCard
-          title="Testimoni"
+          title="Testimonials"
           value={stats.totalTestimonials}
-          description="Total testimoni"
+          description="Total testimonials"
           icon={MessageSquare}
           iconColor="text-orange-600"
         />

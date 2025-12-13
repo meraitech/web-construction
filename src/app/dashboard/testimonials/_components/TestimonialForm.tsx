@@ -76,16 +76,16 @@ export function TestimonialForm({ initialData, mode }: TestimonialFormProps) {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <div className="space-y-4">
-          <h2 className="text-lg font-semibold">Informasi Testimonial</h2>
+          <h2 className="text-lg font-semibold">Testimonial Information</h2>
 
           <FormField
             control={form.control}
             name="client_name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Nama Klien *</FormLabel>
+                <FormLabel>Client Name *</FormLabel>
                 <FormControl>
-                  <Input placeholder="Nama klien" {...field} />
+                  <Input placeholder="Client name" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -97,7 +97,7 @@ export function TestimonialForm({ initialData, mode }: TestimonialFormProps) {
             name="position"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Posisi *</FormLabel>
+                <FormLabel>Position *</FormLabel>
                 <FormControl>
                   <Input placeholder="e.g. CEO PT ABC, Homeowner" {...field} />
                 </FormControl>
@@ -111,12 +111,12 @@ export function TestimonialForm({ initialData, mode }: TestimonialFormProps) {
             name="message"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Pesan Testimonial *</FormLabel>
+                <FormLabel>Testimonial Message *</FormLabel>
                 <FormControl>
-                  <Textarea 
-                    placeholder="Tulis pesan testimonial di sini..."
+                  <Textarea
+                    placeholder="Write your testimonial here..."
                     className="min-h-[150px]"
-                    {...field} 
+                    {...field}
                   />
                 </FormControl>
                 <FormMessage />
@@ -129,7 +129,7 @@ export function TestimonialForm({ initialData, mode }: TestimonialFormProps) {
 
         <div className="flex gap-4">
           <Button type="submit" disabled={isSubmitting}>
-            {isSubmitting ? "Menyimpan..." : mode === "edit" ? "Update" : "Simpan"}
+            {isSubmitting ? "Saving..." : mode === "edit" ? "Update" : "Save"}
           </Button>
           <Button
             type="button"
@@ -137,7 +137,7 @@ export function TestimonialForm({ initialData, mode }: TestimonialFormProps) {
             onClick={handleCancel}
             disabled={isSubmitting}
           >
-            Batal
+            Cancel
           </Button>
         </div>
       </form>

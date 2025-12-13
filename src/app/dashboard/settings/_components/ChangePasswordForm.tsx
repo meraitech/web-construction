@@ -36,11 +36,10 @@ export function ChangePasswordForm() {
     <form id="password-form" action={handleSubmit} className="space-y-6">
       {message && (
         <div
-          className={`p-4 rounded-lg border ${
-            message.type === "success"
+          className={`p-4 rounded-lg border ${message.type === "success"
               ? "bg-green-50 border-green-200 text-green-800"
               : "bg-red-50 border-red-200 text-red-800"
-          }`}
+            }`}
         >
           {message.text}
         </div>
@@ -49,14 +48,14 @@ export function ChangePasswordForm() {
       <div className="space-y-4">
         <div>
           <label htmlFor="current_password" className="block text-sm font-semibold text-gray-700 mb-2">
-            Password Saat Ini
+            Current Password
           </label>
           <div className="relative">
             <Input
               id="current_password"
               name="current_password"
               type={showPasswords.current ? "text" : "password"}
-              placeholder="Masukkan password saat ini"
+              placeholder="Enter current password"
               required
               className="pr-10"
             />
@@ -72,14 +71,14 @@ export function ChangePasswordForm() {
 
         <div>
           <label htmlFor="new_password" className="block text-sm font-semibold text-gray-700 mb-2">
-            Password Baru
+            New Password
           </label>
           <div className="relative">
             <Input
               id="new_password"
               name="new_password"
               type={showPasswords.new ? "text" : "password"}
-              placeholder="Masukkan password baru"
+              placeholder="Enter new password"
               required
               className="pr-10"
             />
@@ -95,14 +94,14 @@ export function ChangePasswordForm() {
 
         <div>
           <label htmlFor="confirm_password" className="block text-sm font-semibold text-gray-700 mb-2">
-            Konfirmasi Password Baru
+            Confirm New Password
           </label>
           <div className="relative">
             <Input
               id="confirm_password"
               name="confirm_password"
               type={showPasswords.confirm ? "text" : "password"}
-              placeholder="Konfirmasi password baru"
+              placeholder="Confirm new password"
               required
               className="pr-10"
             />
@@ -118,7 +117,7 @@ export function ChangePasswordForm() {
       </div>
 
       <Button type="submit" disabled={loading} className="w-full md:w-auto">
-        {loading ? "Mengubah..." : "Ubah Password"}
+        {loading ? "Changing..." : "Change Password"}
       </Button>
     </form>
   )

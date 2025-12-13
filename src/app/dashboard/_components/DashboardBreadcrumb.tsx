@@ -18,7 +18,7 @@ const routeNameMap: Record<string, string> = {
     team: "Team",
     testimonials: "Testimonials",
     settings: "Settings",
-    new: "Tambah",
+    new: "New",
     edit: "Edit",
 }
 

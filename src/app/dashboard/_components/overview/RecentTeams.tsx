@@ -10,11 +10,11 @@ interface RecentTeamsProps {
 export function RecentTeams({ teams }: RecentTeamsProps) {
   return (
     <DashboardListCard
-      title="Tim Terbaru"
-      description="5 anggota tim terbaru yang ditambahkan"
+      title="Recent Team Members"
+      description="5 most recently added team members"
       viewAllHref="/dashboard/team"
       items={teams}
-      emptyMessage="Belum ada anggota tim"
+      emptyMessage="No team members yet"
       renderItem={(team) => (
         <div className="flex items-center gap-4">
           <Avatar>

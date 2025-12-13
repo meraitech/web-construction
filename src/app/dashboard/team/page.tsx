@@ -12,9 +12,9 @@ export default async function TeamPage() {
     <div className="space-y-6">
       <DashboardPageHeader
         title="Team"
-        description="Kelola team member perusahaan Anda"
+        description="Manage your company team members"
         action={{
-          label: "Tambah Member",
+          label: "Add Member",
           href: "/dashboard/team/new",
           icon: PlusCircle,
         }}

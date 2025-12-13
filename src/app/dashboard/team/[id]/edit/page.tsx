@@ -19,7 +19,7 @@ export default async function EditTeamPage({
       <div>
         <h1 className="text-3xl font-bold tracking-tight">Edit Team Member</h1>
         <p className="text-muted-foreground">
-          Update informasi team member
+          Update team member information
         </p>
       </div>
 

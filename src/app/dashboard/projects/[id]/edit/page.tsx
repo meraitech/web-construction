@@ -18,9 +18,9 @@ export default async function EditProjectPage({
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight">Edit Proyek</h1>
+        <h1 className="text-3xl font-bold tracking-tight">Edit Project</h1>
         <p className="text-muted-foreground">
-          Perbarui informasi proyek: {project.title}
+          Update project information: {project.title}
         </p>
       </div>
 

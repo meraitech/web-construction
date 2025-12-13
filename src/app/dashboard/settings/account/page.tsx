@@ -15,17 +15,17 @@ export default async function AccountSettingsPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight">Akun Admin</h1>
+        <h1 className="text-3xl font-bold tracking-tight">Admin Account</h1>
         <p className="text-muted-foreground mt-2">
-          Kelola profil dan keamanan akun admin Anda
+          Manage your admin profile and account security
         </p>
       </div>
 
       <Card>
         <CardHeader>
-          <CardTitle>Informasi Profil</CardTitle>
+          <CardTitle>Profile Information</CardTitle>
           <CardDescription>
-            Perbarui nama dan username akun Anda
+            Update your name and username
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -35,9 +35,9 @@ export default async function AccountSettingsPage() {
 
       <Card>
         <CardHeader>
-          <CardTitle>Ubah Password</CardTitle>
+          <CardTitle>Change Password</CardTitle>
           <CardDescription>
-            Pastikan menggunakan password yang kuat untuk keamanan akun Anda
+            Ensure to use a strong password for your account security
           </CardDescription>
         </CardHeader>
         <CardContent>

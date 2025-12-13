@@ -4,9 +4,9 @@ export default function NewTeamPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight">Tambah Team Member</h1>
+        <h1 className="text-3xl font-bold tracking-tight">Add Team Member</h1>
         <p className="text-muted-foreground">
-          Tambahkan anggota team baru
+          Add a new team member
         </p>
       </div>
 

@@ -26,7 +26,7 @@ export default async function TeamDetailPage({
   // Helper function to format date
   const formatDate = (date: Date | string | null) => {
     if (!date) return "-"
-    return new Date(date).toLocaleDateString("id-ID", {
+    return new Date(date).toLocaleDateString("en-US", {
       day: "numeric",
       month: "long",
       year: "numeric",
@@ -82,13 +82,13 @@ export default async function TeamDetailPage({
           <div className="space-y-6">
             {/* Team Info Card */}
             <div className="bg-white rounded-lg p-6 border space-y-4">
-              <h3 className="font-semibold text-gray-900">Informasi Team Member</h3>
+              <h3 className="font-semibold text-gray-900">Team Member Information</h3>
 
               {/* Name */}
               <div className="flex items-center gap-3 py-3 border-t">
                 <User className="h-4 w-4 text-gray-400" />
                 <div className="flex-1">
-                  <p className="text-xs text-gray-500">Nama</p>
+                  <p className="text-xs text-gray-500">Name</p>
                   <p className="text-sm font-medium text-gray-900">
                     {team.name}
                   </p>
@@ -99,7 +99,7 @@ export default async function TeamDetailPage({
               <div className="flex items-center gap-3 py-3 border-t">
                 <Briefcase className="h-4 w-4 text-gray-400" />
                 <div className="flex-1">
-                  <p className="text-xs text-gray-500">Posisi</p>
+                  <p className="text-xs text-gray-500">Position</p>
                   <p className="text-sm font-medium text-gray-900">
                     {team.position}
                   </p>
@@ -110,7 +110,7 @@ export default async function TeamDetailPage({
               <div className="flex items-center gap-3 py-3 border-t">
                 <Clock className="h-4 w-4 text-gray-400" />
                 <div className="flex-1">
-                  <p className="text-xs text-gray-500">Dibuat</p>
+                  <p className="text-xs text-gray-500">Created</p>
                   <p className="text-sm font-medium text-gray-900">
                     {formatDate(team.created_at)}
                   </p>

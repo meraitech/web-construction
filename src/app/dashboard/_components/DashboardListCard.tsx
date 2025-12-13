@@ -18,7 +18,7 @@ export function DashboardListCard<T>({
     viewAllHref,
     items,
     renderItem,
-    emptyMessage = "Belum ada data",
+    emptyMessage = "No data available",
 }: DashboardListCardProps<T>) {
     if (items.length === 0) {
         return (
@@ -45,7 +45,7 @@ export function DashboardListCard<T>({
                 </div>
                 <Button variant="ghost" size="sm" asChild>
                     <Link href={viewAllHref}>
-                        Lihat Semua
+                        View All
                         <ArrowRight className="ml-2 h-4 w-4" />
                     </Link>
                 </Button>

@@ -15,20 +15,20 @@ const statusColors = {
 }
 
 const statusLabels = {
-  planning: "Perencanaan",
-  ongoing: "Berjalan",
-  completed: "Selesai",
-  on_hold: "Ditunda",
+  planning: "Planning",
+  ongoing: "In Progress",
+  completed: "Completed",
+  on_hold: "On Hold",
 }
 
 export function RecentProjects({ projects }: RecentProjectsProps) {
   return (
     <DashboardListCard
-      title="Proyek Terbaru"
-      description="5 proyek terbaru yang ditambahkan"
+      title="Recent Projects"
+      description="5 most recently added projects"
       viewAllHref="/dashboard/projects"
       items={projects}
-      emptyMessage="Belum ada proyek"
+      emptyMessage="No projects yet"
       renderItem={(project) => (
         <div className="flex items-center justify-between">
           <div className="space-y-1 flex-1">

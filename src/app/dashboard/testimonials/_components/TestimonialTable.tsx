@@ -15,7 +15,7 @@ export function TestimonialTable({ data }: TestimonialTableProps) {
 
   const columns: DataTableColumn<Testimonial>[] = [
     {
-      header: "Klien",
+      header: "Client",
       headerClassName: "w-[280px]",
       className: "py-4",
       cell: (testimonial) => (
@@ -29,7 +29,7 @@ export function TestimonialTable({ data }: TestimonialTableProps) {
       ),
     },
     {
-      header: "Posisi",
+      header: "Position",
       cell: (testimonial) => (
         <div className="flex items-center gap-2 text-slate-600">
           <Briefcase className="w-4 h-4 text-slate-400" />
@@ -38,7 +38,7 @@ export function TestimonialTable({ data }: TestimonialTableProps) {
       ),
     },
     {
-      header: "Pesan",
+      header: "Message",
       cell: (testimonial) => (
         <p className="text-sm text-slate-600 truncate max-w-[300px]">
           {testimonial.message}
@@ -57,10 +57,10 @@ export function TestimonialTable({ data }: TestimonialTableProps) {
     },
     {
       icon: Trash2,
-      label: "Hapus Testimonial",
+      label: "Delete Testimonial",
       variant: "destructive",
       onClick: async (testimonial) => {
-        if (!confirm(`Yakin ingin menghapus testimonial dari "${testimonial.client_name}"?`))
+        if (!confirm(`Are you sure you want to delete testimonial from "${testimonial.client_name}"?`))
           return
         const result = await deleteTestimonial(testimonial.id)
         if (result.success) {
@@ -80,9 +80,9 @@ export function TestimonialTable({ data }: TestimonialTableProps) {
       onRowClick={(testimonial) => router.push(`/dashboard/testimonials/${testimonial.id}`)}
       emptyState={{
         icon: MessageSquare,
-        title: "Belum ada testimonial",
+        title: "No testimonials yet",
         action: {
-          label: "Tambah Testimonial Pertama",
+          label: "Add First Testimonial",
           href: "/dashboard/testimonials/new",
         },
       }}

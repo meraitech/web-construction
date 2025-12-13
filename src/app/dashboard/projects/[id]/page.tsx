@@ -39,7 +39,7 @@ export default async function ProjectDetailPage({
   // Helper function to format date
   const formatDate = (date: Date | string | null) => {
     if (!date) return "-";
-    return new Date(date).toLocaleDateString("id-ID", {
+    return new Date(date).toLocaleDateString("en-US", {
       day: "numeric",
       month: "long",
       year: "numeric",
@@ -112,7 +112,7 @@ export default async function ProjectDetailPage({
             {/* Description */}
             <div className="bg-white rounded-lg p-6 border">
               <h2 className="text-lg font-semibold text-gray-900 mb-4">
-                Deskripsi Proyek
+                Project Description
               </h2>
               <p className="text-gray-600 leading-relaxed whitespace-pre-wrap wrap-break-word">
                 {project.description}
@@ -123,7 +123,7 @@ export default async function ProjectDetailPage({
             {project.gallery && project.gallery.length > 0 && (
               <div className="bg-white rounded-lg p-6 border">
                 <h2 className="text-lg font-semibold text-gray-900 mb-4">
-                  Galeri
+                  Gallery
                 </h2>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                   {project.gallery.map((image, index) => (
@@ -148,7 +148,7 @@ export default async function ProjectDetailPage({
           <div className="space-y-6">
             {/* Project Info Card */}
             <div className="bg-white rounded-lg p-6 border space-y-4">
-              <h3 className="font-semibold text-gray-900">Informasi Proyek</h3>
+              <h3 className="font-semibold text-gray-900">Project Information</h3>
 
               {/* Status */}
               <div className="flex items-center justify-between">
@@ -165,7 +165,7 @@ export default async function ProjectDetailPage({
               <div className="flex items-center gap-3 py-3 border-t">
                 <Building2 className="h-4 w-4 text-gray-400" />
                 <div className="flex-1">
-                  <p className="text-xs text-gray-500">Tipe</p>
+                  <p className="text-xs text-gray-500">Type</p>
                   <p className="text-sm font-medium text-gray-900 capitalize">
                     {project.project_type.replace("_", " ")}
                   </p>
@@ -177,7 +177,7 @@ export default async function ProjectDetailPage({
                 <div className="flex items-center gap-3 py-3 border-t">
                   <Building2 className="h-4 w-4 text-gray-400" />
                   <div className="flex-1">
-                    <p className="text-xs text-gray-500">Klien</p>
+                    <p className="text-xs text-gray-500">Client</p>
                     <p className="text-sm font-medium text-gray-900">
                       {project.client_name}
                     </p>
@@ -189,7 +189,7 @@ export default async function ProjectDetailPage({
               <div className="flex items-center gap-3 py-3 border-t">
                 <MapPin className="h-4 w-4 text-gray-400" />
                 <div className="flex-1">
-                  <p className="text-xs text-gray-500">Lokasi</p>
+                  <p className="text-xs text-gray-500">Location</p>
                   <p className="text-sm font-medium text-gray-900">
                     {project.location}
                   </p>
@@ -225,7 +225,7 @@ export default async function ProjectDetailPage({
               <div className="flex items-center gap-3 py-3 border-t">
                 <Clock className="h-4 w-4 text-gray-400" />
                 <div className="flex-1">
-                  <p className="text-xs text-gray-500">Dibuat</p>
+                  <p className="text-xs text-gray-500">Created</p>
                   <p className="text-sm font-medium text-gray-900">
                     {formatDate(project.created_at)}
                   </p>
