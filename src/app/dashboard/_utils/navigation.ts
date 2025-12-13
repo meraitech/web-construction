@@ -27,6 +27,16 @@ export function isDashboardMenu(itemUrl: string): boolean {
 }
 
 /**
+ * Check if menu item has subitems (needs exact match for parent)
+ * @param itemUrl - URL of the menu item
+ * @param hasSubitems - Whether the item has subitems
+ * @returns boolean
+ */
+export function needsExactMatchForParent(itemUrl: string, hasSubitems: boolean): boolean {
+  return hasSubitems
+}
+
+/**
  * Check if any submenu item is active
  * @param pathname - Current pathname
  * @param subItems - Array of submenu items
@@ -40,4 +50,3 @@ export function hasActiveSubItem(
 
   return subItems.some((subItem) => isMenuActive(pathname, subItem.url))
 }
-

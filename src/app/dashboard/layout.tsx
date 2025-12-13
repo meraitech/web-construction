@@ -5,6 +5,7 @@ import "@/shared/styles/admin.css"
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/shared/components/ui/sidebar"
 import { AppSidebar } from "./_components/AppSidebar"
 import { requireAuth } from "@/features/auth/utils/middleware"
+import { getSetting } from "@/features/settings/services/settings.service"
 
 export default async function AdminLayout({
   children,
@@ -12,12 +13,13 @@ export default async function AdminLayout({
   children: React.ReactNode
 }) {
   const user = await requireAuth()
+  const companyName = await getSetting("company_name")
 
   return (
     <html lang="en">
       <body className="antialiased min-h-screen flex flex-col justify-between">
         <SidebarProvider>
-          <AppSidebar user={user} />
+          <AppSidebar user={user} companyName={companyName || undefined} />
           <SidebarInset>
             <header className="flex h-16 shrink-0 items-center gap-2 px-4">
               <SidebarTrigger className="-ml-1 shadow ring ring-gray-200 fixed" />

@@ -90,6 +90,15 @@ export const adminUsers = pgTable("admin_users", {
   updated_at: timestamp("updated_at").defaultNow().notNull(),
 })
 
+// Tabel Settings
+export const settings = pgTable("settings", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  key: varchar("key", { length: 100 }).notNull().unique(),
+  value: text("value"),
+  created_at: timestamp("created_at").defaultNow().notNull(),
+  updated_at: timestamp("updated_at").defaultNow().notNull(),
+})
+
 // Export types
 export type Project = typeof projects.$inferSelect
 export type NewProject = typeof projects.$inferInsert
@@ -99,3 +108,5 @@ export type Testimonial = typeof testimonials.$inferSelect
 export type NewTestimonial = typeof testimonials.$inferInsert
 export type AdminUser = typeof adminUsers.$inferSelect
 export type NewAdminUser = typeof adminUsers.$inferInsert
+export type Setting = typeof settings.$inferSelect
+export type NewSetting = typeof settings.$inferInsert

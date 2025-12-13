@@ -61,10 +61,6 @@ export const sidebarData = {
               url: "/dashboard/settings",
             },
             {
-              title: "Contact",
-              url: "/dashboard/settings/contact",
-            },
-            {
               title: "Social Media",
               url: "/dashboard/settings/social",
             },

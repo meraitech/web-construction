@@ -6,8 +6,14 @@ import { NavMain } from "./NavMain"
 import { NavUser } from "./NavUser"
 import { AuthSession } from "@/features/auth/types/auth.types"
 
-export function AppSidebar({ user, ...props }: React.ComponentProps<typeof Sidebar> & { user: AuthSession | null }) {
+interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
+  user: AuthSession | null
+  companyName?: string
+}
+
+export function AppSidebar({ user, companyName, ...props }: AppSidebarProps) {
   const data = sidebarData
+  const displayName = companyName || data.company.name
 
   return (
     <Sidebar variant="floating" collapsible="icon" {...props}>
@@ -17,10 +23,10 @@ export function AppSidebar({ user, ...props }: React.ComponentProps<typeof Sideb
             <SidebarMenuButton size="lg" asChild>
               <a href="/dashboard">
                 <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-                  {data.company.name.charAt(0)}
+                  {displayName.charAt(0).toUpperCase()}
                 </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-semibold">{data.company.name}</span>
+                  <span className="truncate font-semibold">{displayName}</span>
                   <span className="truncate text-xs">{data.company.plan}</span>
                 </div>
               </a>
