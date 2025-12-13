@@ -1,10 +1,14 @@
 import { notFound } from "next/navigation"
 import { getTeamById } from "@/features/team/services/team.service"
 import { Button } from "@/shared/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/shared/components/ui/card"
-import { Separator } from "@/shared/components/ui/separator"
-import { ArrowLeft, Pencil, User } from "lucide-react"
 import Link from "next/link"
+import {
+  ArrowLeft,
+  Pencil,
+  User,
+  Briefcase,
+  Clock,
+} from "lucide-react"
 import Image from "next/image"
 
 export default async function TeamDetailPage({
@@ -19,81 +23,102 @@ export default async function TeamDetailPage({
     notFound()
   }
 
+  // Helper function to format date
+  const formatDate = (date: Date | string | null) => {
+    if (!date) return "-"
+    return new Date(date).toLocaleDateString("id-ID", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    })
+  }
+
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-4">
-          <Button variant="ghost" size="icon" asChild>
-            <Link href="/dashboard/team">
-              <ArrowLeft className="h-4 w-4" />
+    <div className="min-h-screen">
+      {/* Header */}
+      <div className="bg-white border-b">
+        <div className="max-w-6xl mx-auto px-6 py-6">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <div>
+                <div className="flex items-center gap-3 mb-1">
+                  <h1 className="text-2xl font-bold text-gray-900">
+                    {team.name}
+                  </h1>
+                </div>
+                <p className="text-gray-500">{team.position}</p>
+              </div>
+            </div>
+            <Link href={`/dashboard/team/${team.id}/edit`}>
+              <Button>
+                <Pencil className="h-4 w-4 mr-2" />
+                Edit
+              </Button>
             </Link>
-          </Button>
-          <div>
-            <h1 className="text-3xl font-bold tracking-tight">{team.name}</h1>
-            <p className="text-muted-foreground">{team.position}</p>
           </div>
         </div>
-        <Button asChild>
-          <Link href={`/dashboard/team/${team.id}/edit`}>
-            <Pencil className="mr-2 h-4 w-4" />
-            Edit
-          </Link>
-        </Button>
       </div>
 
-      <Separator />
-
-      <div className="grid gap-6">
-        <Card>
-          <CardHeader>
-            <CardTitle>Profile Picture</CardTitle>
-          </CardHeader>
-          <CardContent>
-            {team.profile?.url ? (
-              <div className="relative w-48 h-48 rounded-full overflow-hidden">
+      {/* Content */}
+      <div className="max-w-6xl mx-auto px-6 py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Main Content - Left Column */}
+          <div className="lg:col-span-2 space-y-6">
+            {/* Profile Picture */}
+            {team.profile && (
+              <div className="relative aspect-video rounded-lg overflow-hidden bg-gray-100">
                 <Image
                   src={team.profile.url}
                   alt={team.name}
                   fill
                   className="object-cover"
-                  sizes="192px"
+                  priority
                 />
               </div>
-            ) : (
-              <div className="w-48 h-48 rounded-full bg-muted flex items-center justify-center">
-                <User className="h-24 w-24 text-muted-foreground" />
-              </div>
             )}
-          </CardContent>
-        </Card>
+          </div>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Informasi Team Member</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div>
-              <p className="text-sm font-medium text-muted-foreground">Nama</p>
-              <p className="text-lg">{team.name}</p>
+          {/* Sidebar - Right Column */}
+          <div className="space-y-6">
+            {/* Team Info Card */}
+            <div className="bg-white rounded-lg p-6 border space-y-4">
+              <h3 className="font-semibold text-gray-900">Informasi Team Member</h3>
+
+              {/* Name */}
+              <div className="flex items-center gap-3 py-3 border-t">
+                <User className="h-4 w-4 text-gray-400" />
+                <div className="flex-1">
+                  <p className="text-xs text-gray-500">Nama</p>
+                  <p className="text-sm font-medium text-gray-900">
+                    {team.name}
+                  </p>
+                </div>
+              </div>
+
+              {/* Position */}
+              <div className="flex items-center gap-3 py-3 border-t">
+                <Briefcase className="h-4 w-4 text-gray-400" />
+                <div className="flex-1">
+                  <p className="text-xs text-gray-500">Posisi</p>
+                  <p className="text-sm font-medium text-gray-900">
+                    {team.position}
+                  </p>
+                </div>
+              </div>
+
+              {/* Created At */}
+              <div className="flex items-center gap-3 py-3 border-t">
+                <Clock className="h-4 w-4 text-gray-400" />
+                <div className="flex-1">
+                  <p className="text-xs text-gray-500">Dibuat</p>
+                  <p className="text-sm font-medium text-gray-900">
+                    {formatDate(team.created_at)}
+                  </p>
+                </div>
+              </div>
             </div>
-            <Separator />
-            <div>
-              <p className="text-sm font-medium text-muted-foreground">Posisi/Jabatan</p>
-              <p className="text-lg">{team.position}</p>
-            </div>
-            <Separator />
-            <div>
-              <p className="text-sm font-medium text-muted-foreground">Dibuat pada</p>
-              <p className="text-lg">
-                {new Date(team.created_at).toLocaleDateString("id-ID", {
-                  day: "numeric",
-                  month: "long",
-                  year: "numeric",
-                })}
-              </p>
-            </div>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       </div>
     </div>
   )
