@@ -24,9 +24,7 @@ export default async function EditProjectPage({
         </p>
       </div>
 
-      <div className="max-w-2xl">
-        <ProjectForm mode="edit" initialData={project} />
-      </div>
+      <ProjectForm mode="edit" initialData={project} />
     </div>
   )
 }

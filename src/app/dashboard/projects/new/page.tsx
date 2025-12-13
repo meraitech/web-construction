@@ -10,9 +10,7 @@ export default function NewProjectPage() {
         </p>
       </div>
 
-      <div className="max-w-2xl">
-        <ProjectForm mode="create" />
-      </div>
+      <ProjectForm mode="create" />
     </div>
   )
 }
