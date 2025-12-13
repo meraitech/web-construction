@@ -16,9 +16,9 @@ export default function AboutUsSection() {
         />
       </div>
 
-      <div className="mx-auto -mt-44 max-w-[1400px] p-12 w-full flex gap-12 items-center">
+      <div className="mx-auto -mt-44 max-w-[1400px] p-8 lg:p-12 w-full flex max-lg:flex-col gap-12 items-center">
         {/* image  */}
-        <div className="h-210 w-1/2 rounded-4xl overflow-hidden drop-shadow-2xl">
+        <div className="h-210 lg:w-1/2 w-full rounded-4xl overflow-hidden drop-shadow-2xl">
           <Image
             src={"/images/contents/about2.jpg"}
             alt=""
@@ -29,7 +29,7 @@ export default function AboutUsSection() {
         </div>
 
         {/* content  */}
-        <div className="w-1/2 flex flex-col gap-6 items-start">
+        <div className="w-full lg:w-1/2 flex flex-col gap-6 items-start">
           <Heading2 text="The leader in dealership construction" />
           <div className="flex flex-col gap-4 text-xl mb-8">
             <p>
