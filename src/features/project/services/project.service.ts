@@ -1,6 +1,6 @@
 import { db } from "@/shared/db"
 import { projects } from "@/shared/db/schema"
-import { eq, desc, count, sql } from "drizzle-orm"
+import { eq, desc, count } from "drizzle-orm"
 import { Project, ProjectsResponse, ProjectStatus, ProjectType } from "../types/project.types"
 
 export async function getProjects(filters?: {
@@ -13,7 +13,7 @@ export async function getProjects(filters?: {
   const limit = filters?.limit || 10
   const offset = (page - 1) * limit
 
-  let whereClause = filters?.status ? eq(projects.status, filters.status) : undefined
+  const whereClause = filters?.status ? eq(projects.status, filters.status) : undefined
 
   const [data, totalResult] = await Promise.all([
     db
