@@ -175,12 +175,12 @@ export function ImageUpload({
               </>
             ) : (
               <>
-                <Upload className="h-12 w-12 text-muted-foreground mb-2" />
-                <span className="text-sm font-medium text-muted-foreground">
+                <Upload className="h-6 w-6 text-muted-foreground mb-2" />
+                <span className="text-xs font-medium text-muted-foreground">
                   Click to upload
                 </span>
                 <span className="text-xs text-muted-foreground mt-1">
-                  {multiple ? "or drag and drop" : "PNG, JPG up to 4MB"}
+                  {multiple ? "" : "PNG, JPG up to 4MB"}
                 </span>
               </>
             )}
