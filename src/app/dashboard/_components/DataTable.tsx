@@ -12,7 +12,7 @@ import {
 import { Button } from "@/shared/components/ui/button"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { LucideIcon } from "lucide-react"
+import { LucideIcon, ChevronLeft, ChevronRight } from "lucide-react"
 
 export interface DataTableColumn<T> {
   header: string
@@ -45,6 +45,10 @@ export interface DataTableProps<T> {
     }
   }
   keyExtractor: (item: T) => string
+  pagination?: {
+    pageSize?: number
+    showPagination?: boolean
+  }
 }
 
 export function DataTable<T>({
@@ -54,9 +58,18 @@ export function DataTable<T>({
   onRowClick,
   emptyState,
   keyExtractor,
+  pagination = { pageSize: 5, showPagination: true },
 }: DataTableProps<T>) {
   const router = useRouter()
   const [isProcessing, setIsProcessing] = useState<string | null>(null)
+  const [currentPage, setCurrentPage] = useState(1)
+
+  const pageSize = pagination.pageSize || 5
+  const showPagination = pagination.showPagination !== false
+  const totalPages = Math.ceil(data.length / pageSize)
+  const startIndex = (currentPage - 1) * pageSize
+  const endIndex = startIndex + pageSize
+  const paginatedData = showPagination ? data.slice(startIndex, endIndex) : data
 
   const handleAction = async (
     e: React.MouseEvent,
@@ -100,80 +113,124 @@ export function DataTable<T>({
   }
 
   return (
-    <div className="rounded-xl border border-border bg-card shadow-sm overflow-hidden px-2">
-      <Table>
-        <TableHeader>
-          <TableRow className="bg-muted/50 hover:bg-muted/50 border-b border-border">
-            {columns.map((column, index) => (
-              <TableHead
-                key={index}
-                className={`font-semibold text-foreground ${column.headerClassName || ""}`}
-              >
-                {column.header}
-              </TableHead>
-            ))}
-            {actions && actions.length > 0 && (
-              <TableHead className="font-semibold text-foreground text-right w-[120px]">
-                Actions
-              </TableHead>
-            )}
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {data.map((item) => (
-            <TableRow
-              key={keyExtractor(item)}
-              onClick={() => onRowClick?.(item)}
-              className={`group border-b border-border hover:bg-muted/50 transition-colors ${onRowClick ? "cursor-pointer" : ""
-                }`}
-            >
+    <div className="space-y-4">
+      <div className="rounded-xl border border-border bg-card shadow-sm overflow-hidden px-2">
+        <Table>
+          <TableHeader>
+            <TableRow className="bg-muted/50 hover:bg-muted/50 border-b border-border">
               {columns.map((column, index) => (
-                <TableCell
+                <TableHead
                   key={index}
-                  className={column.className || ""}
+                  className={`font-semibold text-foreground ${column.headerClassName || ""}`}
                 >
-                  {column.cell
-                    ? column.cell(item)
-                    : column.accessor
-                      ? String(item[column.accessor])
-                      : null}
-                </TableCell>
+                  {column.header}
+                </TableHead>
               ))}
               {actions && actions.length > 0 && (
-                <TableCell className="text-right">
-                  <div className="flex items-center justify-end gap-1">
-                    {actions.map((action, index) => {
-                      const Icon = action.icon
-                      const isDestructive = action.variant === "destructive"
-
-                      return (
-                        <Button
-                          key={index}
-                          variant="ghost"
-                          size="icon"
-                          className={
-                            action.className ||
-                            `h-8 w-8 text-muted-foreground ${isDestructive
-                              ? "hover:text-destructive hover:bg-destructive/10"
-                              : "hover:text-primary hover:bg-primary/10"
-                            } transition-colors`
-                          }
-                          onClick={(e) => handleAction(e, action, item)}
-                          disabled={isProcessing === keyExtractor(item)}
-                          title={action.label}
-                        >
-                          <Icon className="h-4 w-4" />
-                        </Button>
-                      )
-                    })}
-                  </div>
-                </TableCell>
+                <TableHead className="font-semibold text-foreground text-right w-[120px]">
+                  Actions
+                </TableHead>
               )}
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+          </TableHeader>
+          <TableBody>
+            {paginatedData.map((item) => (
+              <TableRow
+                key={keyExtractor(item)}
+                onClick={() => onRowClick?.(item)}
+                className={`group border-b border-border hover:bg-muted/50 transition-colors ${onRowClick ? "cursor-pointer" : ""
+                  }`}
+              >
+                {columns.map((column, index) => (
+                  <TableCell
+                    key={index}
+                    className={column.className || ""}
+                  >
+                    {column.cell
+                      ? column.cell(item)
+                      : column.accessor
+                        ? String(item[column.accessor])
+                        : null}
+                  </TableCell>
+                ))}
+                {actions && actions.length > 0 && (
+                  <TableCell className="text-right">
+                    <div className="flex items-center justify-end gap-1">
+                      {actions.map((action, index) => {
+                        const Icon = action.icon
+                        const isDestructive = action.variant === "destructive"
+
+                        return (
+                          <Button
+                            key={index}
+                            variant="ghost"
+                            size="icon"
+                            className={
+                              action.className ||
+                              `h-8 w-8 text-muted-foreground ${isDestructive
+                                ? "hover:text-destructive hover:bg-destructive/10"
+                                : "hover:text-primary hover:bg-primary/10"
+                              } transition-colors`
+                            }
+                            onClick={(e) => handleAction(e, action, item)}
+                            disabled={isProcessing === keyExtractor(item)}
+                            title={action.label}
+                          >
+                            <Icon className="h-4 w-4" />
+                          </Button>
+                        )
+                      })}
+                    </div>
+                  </TableCell>
+                )}
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
+
+      {showPagination && totalPages > 1 && (
+        <div className="flex items-center justify-between px-2">
+          <div className="text-sm text-muted-foreground">
+            Showing {startIndex + 1} to {Math.min(endIndex, data.length)} of {data.length} entries
+          </div>
+          <div className="flex items-center gap-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+              disabled={currentPage === 1}
+              className="h-8"
+            >
+              <ChevronLeft className="h-4 w-4 mr-1" />
+              Previous
+            </Button>
+            <div className="flex items-center gap-1">
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                <Button
+                  key={page}
+                  variant={currentPage === page ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setCurrentPage(page)}
+                  className="h-8 w-8 p-0"
+                >
+                  {page}
+                </Button>
+              ))}
+            </div>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
+              disabled={currentPage === totalPages}
+              className="h-8"
+            >
+              Next
+              <ChevronRight className="h-4 w-4 ml-1" />
+            </Button>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
-

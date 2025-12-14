@@ -415,7 +415,7 @@ export function ProjectForm({ initialData, mode }: ProjectFormProps) {
               </div>
               <Separator />
 
-              {/* Thumbnail - Compact Preview */}
+              {/* Thumbnail */}
               <FormField
                 control={form.control}
                 name="thumbnail"
@@ -423,51 +423,11 @@ export function ProjectForm({ initialData, mode }: ProjectFormProps) {
                   <FormItem>
                     <FormLabel>Thumbnail *</FormLabel>
                     <FormControl>
-                      <div className="space-y-2">
-                        {field.value ? (
-                          <div className="relative w-32 h-32 rounded overflow-hidden border border-gray-200 group bg-gray-50">
-                            <img
-                              src={field.value.url}
-                              alt="Thumbnail preview"
-                              className="w-full h-full object-cover"
-                            />
-                            <button
-                              type="button"
-                              onClick={() => field.onChange(null)}
-                              className="absolute top-1 right-1 w-6 h-6 flex items-center justify-center bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600"
-                            >
-                              ×
-                            </button>
-                          </div>
-                        ) : (
-                          <div className="relative w-32 h-32 flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded bg-gray-50 hover:border-gray-400 hover:bg-gray-100 transition-colors cursor-pointer group">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              className="h-10 w-10 text-gray-400 group-hover:text-gray-500"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              stroke="currentColor"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={1.5}
-                                d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-                              />
-                            </svg>
-                            <span className="mt-2 text-xs font-medium text-gray-500 group-hover:text-gray-600">
-                              Upload
-                            </span>
-                            {/* Hidden ImageUpload Component */}
-                            <div className="absolute inset-0 opacity-0">
-                              <ImageUpload
-                                value={field.value}
-                                onChange={field.onChange}
-                              />
-                            </div>
-                          </div>
-                        )}
-                      </div>
+                      <ImageUpload
+                        value={field.value}
+                        onChange={field.onChange}
+                        multiple={false}
+                      />
                     </FormControl>
                     <FormDescription>
                       Main cover image (recommended: 16:9 ratio, 1920x1080px)
@@ -477,7 +437,7 @@ export function ProjectForm({ initialData, mode }: ProjectFormProps) {
                 )}
               />
 
-              {/* Gallery - Container with Individual Upload */}
+              {/* Gallery - Multiple Upload */}
               <FormField
                 control={form.control}
                 name="gallery"
@@ -485,84 +445,15 @@ export function ProjectForm({ initialData, mode }: ProjectFormProps) {
                   <FormItem>
                     <FormLabel>Gallery</FormLabel>
                     <FormControl>
-                      <div className="space-y-3">
-                        {/* Gallery Grid - Horizontal Flow */}
-                        <div className="flex flex-wrap gap-3">
-                          {/* Existing Images */}
-                          {field.value?.map((image, index) => (
-                            <div
-                              key={index}
-                              className="relative w-32 h-32 rounded overflow-hidden border border-gray-200 group bg-gray-50"
-                            >
-                              <img
-                                src={image.url}
-                                alt={`Gallery ${index + 1}`}
-                                className="w-full h-full object-cover"
-                              />
-                              <button
-                                type="button"
-                                onClick={() => {
-                                  const newGallery = field.value?.filter((_, i) => i !== index);
-                                  field.onChange(newGallery);
-                                }}
-                                className="absolute top-1 right-1 w-6 h-6 flex items-center justify-center bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600"
-                              >
-                                ×
-                              </button>
-                            </div>
-                          ))}
-
-                          {/* Add New Image Card */}
-                          {(!field.value || field.value.length < 10) && (
-                            <div className="relative w-32 h-32 flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded bg-gray-50 hover:border-gray-400 hover:bg-gray-100 transition-colors cursor-pointer group">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                className="h-10 w-10 text-gray-400 group-hover:text-gray-500"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  strokeWidth={1.5}
-                                  d="M12 4v16m8-8H4"
-                                />
-                              </svg>
-                              <span className="mt-2 text-xs font-medium text-gray-500 group-hover:text-gray-600">
-                                Add Image
-                              </span>
-                              {/* Hidden ImageUpload Component */}
-                              <div className="absolute inset-0 opacity-0">
-                                <ImageUpload
-                                  value={undefined}
-                                  onChange={(newImage) => {
-                                    if (newImage) {
-                                      const currentGallery = field.value || [];
-                                      field.onChange([...currentGallery, newImage]);
-                                    }
-                                  }}
-                                />
-                              </div>
-                            </div>
-                          )}
-                        </div>
-
-                        {/* Counter and Max Message */}
-                        <div className="flex items-center justify-between">
-                          <p className="text-xs text-gray-500">
-                            {field.value?.length || 0} / 10 images
-                          </p>
-                          {field.value && field.value.length >= 10 && (
-                            <p className="text-xs text-amber-600 font-medium">
-                              Maximum limit reached
-                            </p>
-                          )}
-                        </div>
-                      </div>
+                      <ImageUpload
+                        value={field.value}
+                        onChange={field.onChange}
+                        multiple={true}
+                        maxFiles={100}
+                      />
                     </FormControl>
                     <FormDescription>
-                      Click the + button to add photos one by one
+                      Upload multiple photos at once (up to 100 total)
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
