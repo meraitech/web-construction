@@ -5,7 +5,7 @@ import ProjectSection from "./_components/ProjectSection";
 
 export default function HomePage() {
   return (
-    <div className="flex flex-col  overflow-hidden">
+    <div className="flex flex-col overflow-hidden">
       <HeroSection />
       <div className="z-1 bg-background">
         <ProjectSection />
