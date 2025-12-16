@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #282828;
+  --background: #181818;
+  --foreground: #ededed;
   --accent: #f5cb5c;
   --muted: #222222;
   --muted-foreground: #797979;
@@ -18,12 +18,12 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --background: #181818;
     --foreground: #ededed;
   }
-}
+} */
 
 @layer utilities {
   /* Chrome, Safari, and Opera */

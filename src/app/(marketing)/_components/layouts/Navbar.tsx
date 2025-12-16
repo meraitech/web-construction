@@ -39,7 +39,7 @@ export default function Navbar() {
           <Image
             src={COMPANY_LOGO}
             alt=""
-            className="w-full h-full"
+            className="w-full h-full object-contain"
             width={1080}
             height={720}
           />
