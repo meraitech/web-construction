@@ -37,12 +37,12 @@ export default async function ProjectByIdPage({ params }: PageProps) {
 
         {/* Galery  */}
         {data?.gallery && (
-          <div className="grid grid-cols-2 gap-4">
-            <div className="col-span-2 w-full aspect-[5/2.5] lg:hover:w-full duration-1000 bg-muted rounded-4xl overflow-hidden">
+          <div className="grid md:grid-cols-2 gap-4">
+            <div className="md:col-span-2 w-full aspect-[5/2.5] lg:hover:w-full duration-1000 bg-muted rounded-4xl overflow-hidden group">
               <Image
                 src={data.thumbnail?.url || ""}
                 alt=""
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover group-hover:scale-105 duration-300"
                 width={1080}
                 height={720}
                 draggable={false}
@@ -60,11 +60,11 @@ export default async function ProjectByIdPage({ params }: PageProps) {
 
 const GaleryCard = ({ url }: { url: string }) => {
   return (
-    <div className="w-full aspect-video lg:hover:w-full duration-1000 bg-muted rounded-4xl overflow-hidden">
+    <div className="w-full aspect-video lg:hover:w-full duration-1000 bg-muted rounded-4xl overflow-hidden group">
       <Image
         src={url}
         alt=""
-        className="w-full h-full object-cover"
+        className="w-full h-full object-cover group-hover:scale-105 duration-300"
         width={1080}
         height={720}
         draggable={false}
