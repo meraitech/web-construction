@@ -168,7 +168,7 @@ export default function Navbar() {
           <Image
             src={COMPANY_LOGO}
             alt=""
-            className="w-full h-full object-contain"
+            className="w-full h-full object-contain left-0 flex justify-start"
             width={1080}
             height={720}
           />
