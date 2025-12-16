@@ -37,7 +37,7 @@ export default function AboutUsSection() {
             <TypographyP text="Our integrated approach ensures your dealership project—whether new construction, expansion, or renovation—is delivered efficiently, cost-effectively, and fully aligned with global brand standards." />
           </div>
           {/* CTA  */}
-          <CTAButton href="/about-us" text="About Us" />
+          <CTAButton href="/about" text="About Us" />
         </div>
       </div>
     </section>
