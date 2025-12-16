@@ -88,7 +88,7 @@ export default function AuthLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex items-center justify-center bg-linear-to-br from-gray-50 to-gray-100`}
       >
         {children}
       </body>
