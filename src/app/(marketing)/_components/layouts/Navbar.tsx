@@ -7,50 +7,59 @@ import { TO_ABOUT, TO_HOME, TO_PROJECTS } from "@/shared/constants/url";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { COMPANY_LOGO } from "@/shared/constants/brand";
+import { useSyncExternalStore } from "react";
+import { createPortal } from "react-dom";
+
+function useIsClient() {
+  return useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false
+  );
+}
 
 function MobileNav() {
   const [open, setOpen] = useState(false);
+  const isClient = useIsClient();
 
   useLayoutEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.killTweensOf([".mobile-drawer-backdrop", ".mobile-drawer-panel"]);
+    if (!isClient) return;
 
-      if (open) {
-        gsap.set(".mobile-drawer", { pointerEvents: "auto" });
+    gsap.killTweensOf([".mobile-drawer-backdrop", ".mobile-drawer-panel"]);
 
-        gsap.to(".mobile-drawer-backdrop", {
-          autoAlpha: 1,
-          duration: 0.2,
-          ease: "power2.out",
-        });
+    if (open) {
+      gsap.set(".mobile-drawer", { pointerEvents: "auto" });
 
-        gsap.fromTo(
-          ".mobile-drawer-panel",
-          { y: -12, autoAlpha: 0, scale: 0.98 },
-          { y: 0, autoAlpha: 1, scale: 1, duration: 0.25, ease: "power2.out" }
-        );
-      } else {
-        gsap.to(".mobile-drawer-backdrop", {
-          autoAlpha: 0,
-          duration: 0.15,
-          ease: "power2.out",
-        });
+      gsap.to(".mobile-drawer-backdrop", {
+        autoAlpha: 1,
+        duration: 0.2,
+        ease: "power2.out",
+      });
 
-        gsap.to(".mobile-drawer-panel", {
-          y: -8,
-          autoAlpha: 0,
-          scale: 0.98,
-          duration: 0.18,
-          ease: "power2.out",
-          onComplete: () => {
-            gsap.set(".mobile-drawer", { pointerEvents: "none" });
-          },
-        });
-      }
-    });
+      gsap.fromTo(
+        ".mobile-drawer-panel",
+        { y: -12, autoAlpha: 0, scale: 0.98 },
+        { y: 0, autoAlpha: 1, scale: 1, duration: 0.25, ease: "power2.out" }
+      );
+    } else {
+      gsap.to(".mobile-drawer-backdrop", {
+        autoAlpha: 0,
+        duration: 0.15,
+        ease: "power2.out",
+      });
 
-    return () => ctx.revert();
-  }, [open]);
+      gsap.to(".mobile-drawer-panel", {
+        y: -8,
+        autoAlpha: 0,
+        scale: 0.98,
+        duration: 0.18,
+        ease: "power2.out",
+        onComplete: () => {
+          gsap.set(".mobile-drawer", { pointerEvents: "none" });
+        },
+      });
+    }
+  }, [open, isClient]);
 
   useEffect(() => {
     if (!open) return;
@@ -60,6 +69,35 @@ function MobileNav() {
       document.body.style.overflow = prev;
     };
   }, [open]);
+
+  const overlay = (
+    <div className="mobile-drawer md:hidden fixed inset-0 z-[2147483647] pointer-events-none">
+      <button
+        type="button"
+        aria-label="Close menu backdrop"
+        onClick={() => setOpen(false)}
+        className="mobile-drawer-backdrop fixed inset-0 bg-black/40 opacity-0"
+        style={{ pointerEvents: open ? "auto" : "none" }}
+      />
+      <div className="mobile-drawer-panel fixed left-4 right-4 top-[88px] opacity-0">
+        <div className="bg-foreground text-background rounded-2xl px-6 py-5 backdrop-blur-sm">
+          <nav>
+            <ol className="flex flex-col gap-4">
+              <Link href={TO_HOME} onClick={() => setOpen(false)}>
+                <li>Home</li>
+              </Link>
+              <Link href={TO_PROJECTS} onClick={() => setOpen(false)}>
+                <li>Projects</li>
+              </Link>
+              <Link href={TO_ABOUT} onClick={() => setOpen(false)}>
+                <li>About</li>
+              </Link>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+  );
 
   return (
     <>
@@ -89,36 +127,7 @@ function MobileNav() {
         </span>
       </button>
 
-      {/* IMPORTANT: no `hidden` here */}
-      <div className="mobile-drawer md:hidden fixed inset-0 z-[9999] pointer-events-none">
-        {/* Backdrop */}
-        <button
-          type="button"
-          aria-label="Close menu backdrop"
-          onClick={() => setOpen(false)}
-          className="mobile-drawer-backdrop fixed inset-0 bg-black/40 opacity-0"
-          style={{ pointerEvents: open ? "auto" : "none" }}
-        />
-
-        {/* Panel */}
-        <div className="mobile-drawer-panel fixed left-4 right-4 top-[88px] opacity-0 z-[10000]">
-          <div className="bg-foreground text-background rounded-2xl px-6 py-5 backdrop-blur-sm">
-            <nav>
-              <ol className="flex flex-col gap-4">
-                <Link href={TO_HOME} onClick={() => setOpen(false)}>
-                  <li>Home</li>
-                </Link>
-                <Link href={TO_PROJECTS} onClick={() => setOpen(false)}>
-                  <li>Projects</li>
-                </Link>
-                <Link href={TO_ABOUT} onClick={() => setOpen(false)}>
-                  <li>About</li>
-                </Link>
-              </ol>
-            </nav>
-          </div>
-        </div>
-      </div>
+      {isClient ? createPortal(overlay, document.body) : null}
     </>
   );
 }
