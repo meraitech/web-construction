@@ -55,7 +55,26 @@ export function ImageUpload({
 
     setUploading(true)
     try {
-      const uploaded = await startUpload(Array.from(files))
+      // Compress files before upload
+      const fileArray = Array.from(files)
+      const compressedFilesPromises = fileArray.map(async (file) => {
+        // Only compress images
+        if (file.type.startsWith('image/')) {
+          try {
+            // Dynamic import to avoid SSR issues if any, though standard import works too
+            const { compressImage } = await import("@/shared/utils/image-compression")
+            return await compressImage(file)
+          } catch (err) {
+            console.error("Compression failed for", file.name, err)
+            return file
+          }
+        }
+        return file
+      })
+
+      const filesToUpload = await Promise.all(compressedFilesPromises)
+
+      const uploaded = await startUpload(filesToUpload)
       if (!uploaded) throw new Error("Upload failed")
 
       const imageData: UploadedFile[] = uploaded.map((file) => {
@@ -77,6 +96,7 @@ export function ImageUpload({
       }
     } catch (error) {
       alert("Gagal upload gambar")
+      console.error(error)
     } finally {
       setUploading(false)
     }
