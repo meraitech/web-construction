@@ -22,6 +22,7 @@ interface ImageUploadProps {
   maxFiles?: number
   endpoint?: "singleImage" | "multipleImages"
   disabled?: boolean
+  className?: string
 }
 
 export function ImageUpload({
@@ -31,7 +32,8 @@ export function ImageUpload({
   multiple = false,
   maxFiles = 10,
   endpoint,
-  disabled = false
+  disabled = false,
+  className
 }: ImageUploadProps) {
   const [uploading, setUploading] = useState(false)
 
@@ -111,7 +113,8 @@ export function ImageUpload({
         "grid gap-4",
         multiple
           ? "grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
-          : "grid-cols-1"
+          : "grid-cols-1",
+        className
       )}>
         {images.map((img, idx) => (
           <div
@@ -157,7 +160,8 @@ export function ImageUpload({
               "relative rounded-lg border-2 border-dashed flex flex-col items-center justify-center cursor-pointer hover:bg-muted/50 hover:border-primary transition-all",
               multiple
                 ? "aspect-square"
-                : "aspect-video max-w-3xl"
+                : "aspect-video max-w-3xl",
+              // Should also allow overriding aspect ratio
             )}
           >
             <input

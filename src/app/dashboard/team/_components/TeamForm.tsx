@@ -53,22 +53,14 @@ export function TeamForm({ initialData, mode }: TeamFormProps) {
 
   const handleCancel = async () => {
     const currentProfile = form.getValues("profile")
-    const filesToCleanup: string[] = []
 
-    if (currentProfile?.key && currentProfile.name?.startsWith("temp-")) {
-      const isNewUpload =
-        !initialData?.profile || initialData.profile.key !== currentProfile.key
-      if (isNewUpload) {
-        filesToCleanup.push(currentProfile.key)
+    await fileUpload.cleanupOnCancel(
+      { thumbnail: currentProfile, gallery: [] },
+      {
+        thumbnail: initialData?.profile || null,
+        gallery: []
       }
-    }
-
-    if (filesToCleanup.length > 0) {
-      await fileUpload.cleanupOnCancel(
-        { thumbnail: currentProfile, gallery: [] },
-        { thumbnail: null, gallery: [] }
-      )
-    }
+    )
 
     if (mode === "edit" && initialData) {
       form.reset({
@@ -181,51 +173,13 @@ export function TeamForm({ initialData, mode }: TeamFormProps) {
                   <FormItem>
                     <FormLabel>Photo *</FormLabel>
                     <FormControl>
-                      <div className="space-y-2">
-                        {field.value ? (
-                          <div className="relative w-32 h-32 rounded overflow-hidden border border-gray-200 group bg-gray-50">
-                            <img
-                              src={field.value.url}
-                              alt="Profile preview"
-                              className="w-full h-full object-cover"
-                            />
-                            <button
-                              type="button"
-                              onClick={() => field.onChange(null)}
-                              className="absolute top-1 right-1 w-6 h-6 flex items-center justify-center bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600"
-                            >
-                              ×
-                            </button>
-                          </div>
-                        ) : (
-                          <div className="relative w-32 h-32 flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded bg-gray-50 hover:border-gray-400 hover:bg-gray-100 transition-colors cursor-pointer group">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              className="h-10 w-10 text-gray-400 group-hover:text-gray-500"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              stroke="currentColor"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={1.5}
-                                d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-                              />
-                            </svg>
-                            <span className="mt-2 text-xs font-medium text-gray-500 group-hover:text-gray-600">
-                              Upload
-                            </span>
-                            {/* Hidden ImageUpload Component */}
-                            <div className="absolute inset-0 opacity-0">
-                              <ImageUpload
-                                value={field.value}
-                                onChange={field.onChange}
-                              />
-                            </div>
-                          </div>
-                        )}
-                      </div>
+                      <ImageUpload
+                        value={field.value}
+                        onChange={field.onChange}
+                        onDelete={(key) => fileUpload.trackDeletedFile(key)}
+                        // Use custom class to force square aspect ratio and smaller size matching the previous design
+                        className="[&>div]:!aspect-square [&>div]:!w-32 [&>div]:!h-32 [&>label]:!aspect-square [&>label]:!w-32 [&>label]:!h-32"
+                      />
                     </FormControl>
                     <FormDescription>
                       Profile photo (recommended: square ratio, 500x500px)
