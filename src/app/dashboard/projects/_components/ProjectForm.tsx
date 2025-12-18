@@ -87,31 +87,14 @@ export function ProjectForm({ initialData, mode }: ProjectFormProps) {
   const handleCancel = async () => {
     const currentThumbnail = form.getValues("thumbnail")
     const currentGallery = form.getValues("gallery")
-    const filesToCleanup: string[] = []
 
-    if (currentThumbnail?.key && currentThumbnail.name?.startsWith('temp-')) {
-      const isNewUpload = !initialData?.thumbnail ||
-        initialData.thumbnail.key !== currentThumbnail.key
-      if (isNewUpload) {
-        filesToCleanup.push(currentThumbnail.key)
+    await fileUpload.cleanupOnCancel(
+      { thumbnail: currentThumbnail, gallery: currentGallery },
+      {
+        thumbnail: initialData?.thumbnail || null,
+        gallery: initialData?.gallery || []
       }
-    }
-
-    if (currentGallery && currentGallery.length > 0) {
-      const initialGalleryKeys = initialData?.gallery?.map(g => g.key) || []
-      currentGallery.forEach(file => {
-        if (file.name?.startsWith('temp-') && !initialGalleryKeys.includes(file.key)) {
-          filesToCleanup.push(file.key)
-        }
-      })
-    }
-
-    if (filesToCleanup.length > 0) {
-      await fileUpload.cleanupOnCancel(
-        { thumbnail: currentThumbnail, gallery: currentGallery },
-        { thumbnail: null, gallery: [] }
-      )
-    }
+    )
 
     if (mode === "edit" && initialData) {
       form.reset({
@@ -426,6 +409,7 @@ export function ProjectForm({ initialData, mode }: ProjectFormProps) {
                       <ImageUpload
                         value={field.value}
                         onChange={field.onChange}
+                        onDelete={(key) => fileUpload.trackDeletedFile(key)}
                         multiple={false}
                       />
                     </FormControl>
@@ -448,6 +432,7 @@ export function ProjectForm({ initialData, mode }: ProjectFormProps) {
                       <ImageUpload
                         value={field.value}
                         onChange={field.onChange}
+                        onDelete={(key) => fileUpload.trackDeletedFile(key)}
                         multiple={true}
                         maxFiles={100}
                       />

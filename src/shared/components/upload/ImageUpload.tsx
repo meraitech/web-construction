@@ -22,6 +22,7 @@ interface ImageUploadProps {
   maxFiles?: number
   endpoint?: "singleImage" | "multipleImages"
   disabled?: boolean
+  className?: string
 }
 
 export function ImageUpload({
@@ -31,7 +32,8 @@ export function ImageUpload({
   multiple = false,
   maxFiles = 10,
   endpoint,
-  disabled = false
+  disabled = false,
+  className
 }: ImageUploadProps) {
   const [uploading, setUploading] = useState(false)
 
@@ -53,7 +55,26 @@ export function ImageUpload({
 
     setUploading(true)
     try {
-      const uploaded = await startUpload(Array.from(files))
+      // Compress files before upload
+      const fileArray = Array.from(files)
+      const compressedFilesPromises = fileArray.map(async (file) => {
+        // Only compress images
+        if (file.type.startsWith('image/')) {
+          try {
+            // Dynamic import to avoid SSR issues if any, though standard import works too
+            const { compressImage } = await import("@/shared/utils/image-compression")
+            return await compressImage(file)
+          } catch (err) {
+            console.error("Compression failed for", file.name, err)
+            return file
+          }
+        }
+        return file
+      })
+
+      const filesToUpload = await Promise.all(compressedFilesPromises)
+
+      const uploaded = await startUpload(filesToUpload)
       if (!uploaded) throw new Error("Upload failed")
 
       const imageData: UploadedFile[] = uploaded.map((file) => {
@@ -75,6 +96,7 @@ export function ImageUpload({
       }
     } catch (error) {
       alert("Gagal upload gambar")
+      console.error(error)
     } finally {
       setUploading(false)
     }
@@ -111,7 +133,8 @@ export function ImageUpload({
         "grid gap-4",
         multiple
           ? "grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
-          : "grid-cols-1"
+          : "grid-cols-1",
+        className
       )}>
         {images.map((img, idx) => (
           <div
@@ -157,7 +180,8 @@ export function ImageUpload({
               "relative rounded-lg border-2 border-dashed flex flex-col items-center justify-center cursor-pointer hover:bg-muted/50 hover:border-primary transition-all",
               multiple
                 ? "aspect-square"
-                : "aspect-video max-w-3xl"
+                : "aspect-video max-w-3xl",
+              // Should also allow overriding aspect ratio
             )}
           >
             <input
