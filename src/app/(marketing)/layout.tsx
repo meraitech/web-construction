@@ -4,6 +4,7 @@ import "@/shared/styles/globals.css";
 import { ReactLenis } from "@/shared/lib/lenis";
 import Navbar from "./_components/layouts/Navbar";
 import Footer from "./_components/layouts/Footer";
+import ScrollToTop from "./_components/ScrollToTop";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -94,6 +95,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col justify-between no-track`}
       >
         <ReactLenis root>
+          <ScrollToTop />
           <Navbar />
           <main>{children}</main>
           <Footer />

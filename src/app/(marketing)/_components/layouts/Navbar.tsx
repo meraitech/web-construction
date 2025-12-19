@@ -71,7 +71,7 @@ function MobileNav() {
   }, [open]);
 
   const overlay = (
-    <div className="mobile-drawer md:hidden fixed inset-0 z-[2147483647] pointer-events-none">
+    <div className="mobile-drawer md:hidden fixed inset-0 z-50 pointer-events-none">
       <button
         type="button"
         aria-label="Close menu backdrop"
@@ -164,15 +164,17 @@ export default function Navbar() {
     >
       <div className="w-full flex justify-between px-4 md:px-8 mx-auto max-w-[1920]">
         {/* Logo */}
-        <span className="h-8 md:h-10 flex justify-start">
-          <Image
-            src={COMPANY_LOGO}
-            alt=""
-            className="w-full h-full object-contain left-0 flex justify-start"
-            width={1080}
-            height={720}
-          />
-        </span>
+        <div className="flex items-center">
+          <div className="h-8 md:h-10 w-full">
+            <Image
+              src={COMPANY_LOGO}
+              alt="Company Logo"
+              className="w-full h-full object-contain"
+              width={1080}
+              height={720}
+            />
+          </div>
+        </div>
 
         {/* NAV (desktop unchanged) */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2">
